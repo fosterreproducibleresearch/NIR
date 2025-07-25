@@ -1,0 +1,270 @@
+import os
+import time
+import random
+import argparse
+import json
+import numpy as np
+import pandas as pd
+import torch
+from tqdm import tqdm
+from transformers import AutoModel, AutoTokenizer, AutoConfig
+
+from owlapy import owl_expression_to_dl
+from owlapy.class_expression import (
+    OWLObjectUnionOf,
+    OWLObjectIntersectionOf,
+    OWLObjectSomeValuesFrom,
+    OWLObjectAllValuesFrom,
+    OWLObjectMinCardinality,
+    OWLObjectMaxCardinality,
+    OWLObjectOneOf,
+)
+from owlapy.render import DLSyntaxObjectRenderer
+from owlapy.parser import DLSyntaxParser
+
+from ontolearn.utils import (
+    jaccard_similarity,
+    f1_set_similarity,
+    concept_reducer,
+    concept_reducer_properties,
+)
+
+from nir import InferenceDataset
+from nir.config import NIRConfig
+from nir.models import NIRComposite, NIRTransformer, NIRLSTM, NIRGRU
+from nir.models.pmanet import PMAnet
+from nir.utils import str2bool, read_embs_and_apply_agg
+from nir.utils import score_all_inds, score_all_inds_composite
+
+"""
+How to run? E.g.,
+
+python nir/scripts/retrieval_eval.py --dataset_dir datasets/semantic_bible/ --output_dir Retrieval_semb_lstm --model lstm --pretrained_model_path nir_pretrained_encoders/NIR_LSTM_semb/ --th 0.52  
+"""
+
+def dataframe_to_latex(df, caption="Table Caption", label="tab:table_label", decimals=3):
+    """
+    Converts a pandas DataFrame to a LaTeX table.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to convert.
+        caption (str): The table caption.
+        label (str): The table label.
+        decimals (int): Number of decimal places to round to.
+
+    Returns:
+        str: The LaTeX table string.
+    """
+
+    latex_str = "\\begin{table}[htbp]\n"
+    latex_str += "\\centering\n"
+    latex_str += "\\caption{" + caption + "}\n"
+    latex_str += "\\label{" + label + "}\n"
+    latex_str += "\\resizebox{\\textwidth}{!}{\\begin{tabular}{" + "c" * (df.shape[1] + 1) + "}\n"  # +1 for the index column
+    latex_str += "\\toprule\n"
+
+    # Header row
+    header = ["Type"] + list(df.columns)
+    latex_str += " & ".join(header) + " \\\\\n"
+    latex_str += "\\midrule\n"
+
+    # Data rows
+    for index, row in df.iterrows():
+        row_str = [index] + [f"{val:.{decimals}f}" if isinstance(val, float) else str(val) for val in row]
+        latex_str += " & ".join(row_str) + " \\\\\n"
+
+    latex_str += "\\bottomrule\n"
+    latex_str += "\\end{tabular}}\n"
+    latex_str += "\\end{table}"
+
+    return latex_str
+
+def execute(args):
+    dataset_dir = args.dataset_dir
+    print(f"\n=================> Running {args.model.capitalize()} on {dataset_dir} <======================\n")
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
+    # Fix the random seed.
+    seed = args.seed
+    random.seed(seed)
+    np.random.seed(seed)
+    pma_net = None
+    if args.model.lower()=="composite" and args.use_pma:
+        pma_net = PMAnet(NIRConfig().embedding_dim, NIRConfig().num_attention_heads, 1)
+        pma_net.load_state_dict(
+            torch.load(args.pma_model_path, map_location="cpu", weights_only=True))
+        pma_net.eval()
+    kb, all_individuals, embeddings = read_embs_and_apply_agg(args.dataset_dir, nn_agg=pma_net,
+                                                              merge=True)
+    dls_renderer = DLSyntaxObjectRenderer()
+    all_individuals_set = set(all_individuals)
+    all_individuals_arr = np.array(sorted(all_individuals), dtype=object)
+    all_ind_embs = torch.FloatTensor(
+        embeddings.loc[all_individuals_arr].values)  # .to(device)
+    kb_namespace = list(kb.ontology.classes_in_signature())[0].str
+    if "#" in kb_namespace:
+        kb_namespace = kb_namespace.split("#")[0] + "#"
+    elif "/" in kb_namespace:
+        kb_namespace = kb_namespace[:kb_namespace.rfind("/")] + "/"
+    elif ":" in kb_namespace:
+        kb_namespace = kb_namespace[:kb_namespace.rfind(":")] + ":"
+    expression_parser = DLSyntaxParser(kb_namespace)
+    
+    AutoConfig.register("nir", NIRConfig)
+    if args.model.lower() == "composite":
+        #NIRConfig.batch_training = False
+        AutoModel.register(NIRConfig, NIRComposite)
+    elif args.model.lower() == "lstm":
+        AutoModel.register(NIRConfig, NIRLSTM)
+    elif args.model.lower() == "gru":
+        AutoModel.register(NIRConfig, NIRGRU)
+    elif args.model.lower() == "transformer":
+        AutoModel.register(NIRConfig, NIRTransformer)
+    model = AutoModel.from_pretrained(args.pretrained_model_path)
+    tokenizer = None
+    if args.model.lower() != "composite":
+        tokenizer = AutoTokenizer.from_pretrained(args.pretrained_model_path)
+    print("\n\x1b[6;30;42mSuccessfully loaded a pretrained model!\x1b[0m\n")
+    # Set a device for computations
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if args.auto_detect_device:
+        model.to(device)
+        all_ind_embs = all_ind_embs.to(model.device)
+    model.eval()
+    
+    def nir_predict(model, expr, all_individuals_set, all_individuals_arr, all_ind_embs, embeddings, th):
+        start_time = time.time()
+        if isinstance(expr, str):
+            expr = [expr]
+        data = InferenceDataset(data=expr, all_individuals=all_individuals_set,
+                                concept_to_instance_set=None,
+                                embeddings=embeddings)
+        
+        expr, component_embeddings_dict = next(iter(data))
+        component_embeddings_dict = [{key: val.to(device) for key, val in component_embeddings_dict.items()}]
+        
+        outputs = score_all_inds_composite(model, [expr], all_ind_embs, component_embeddings_dict).squeeze()
+        retrieved = set(all_individuals_arr[np.where(outputs > th)[0]])  
+        time_taken = time.time() - start_time
+        return retrieved, time_taken
+
+    def nir_encoders_predict(model, tokenizer, all_ind_embs, expr, all_individuals_arr, th):
+        start_time = time.time()
+        if isinstance(expr, str):
+            expr = [expr]
+        outputs = score_all_inds(model, tokenizer, all_ind_embs, expr, hidden_size=all_ind_embs.shape[1], chunk_size=args.chunk_size).squeeze()
+        #print(outputs.shape)
+        retrieved = set(all_individuals_arr[np.where(outputs > th)[0]])
+        time_taken = time.time() - start_time
+        #all_ind_embs.shape[1]
+        return retrieved, time_taken
+
+    # Retrieval Results
+    def concept_retrieval(expr):
+        start_time = time.time()
+        actual = set([ind.str.split("/")[-1] for ind in kb.individuals(expression_parser.parse(expr))])
+        #print(f"Actual: {actual}")
+        return actual, time.time() - start_time
+
+    with open(args.dataset_dir+'/data/test_data.json') as f:
+        concepts = json.load(f)
+        concepts = list(map(expression_parser.parse, concepts))
+    results = []
+    counter = 0
+    for expression in (tqdm_bar := tqdm(concepts, position=0, leave=True)):
+        expr = dls_renderer.render(expression.get_nnf())
+        try:
+            if args.model.lower() == "composite":
+                retrieval_y, runtime_y = nir_predict(model, expr, all_individuals_set, all_individuals_arr, all_ind_embs, embeddings, args.th)
+            else:
+                retrieval_y, runtime_y = nir_encoders_predict(model, tokenizer, all_ind_embs, expr, all_individuals_arr, args.th)
+        except Exception as e: # Catch any exception.
+            print(str(e))
+            raise
+        retrieval_kb_y, runtime_kb_y = concept_retrieval(expr)
+        jaccard_sim = jaccard_similarity(retrieval_y, retrieval_kb_y)
+        # Compute the F1-score.
+        f1_sim = f1_set_similarity(retrieval_y, retrieval_kb_y)
+        # Store the data.
+        results.append(
+            {
+                "Expression": owl_expression_to_dl(expression),
+                "Type": type(expression).__name__,
+                "Jaccard Similarity": jaccard_sim,
+                "F1": f1_sim,
+                "Runtime KB": runtime_kb_y,
+                "Runtime NIR": runtime_y,
+                "Runtime Benefits": runtime_kb_y-runtime_y,
+                #"NIR_Retrieval": retrieval_y,
+                #"KB Retrieval": retrieval_kb_y,
+            }
+        )
+        # Update the progress bar.
+        tqdm_bar.set_description_str(
+            f"Expression {counter}: {owl_expression_to_dl(expression)} | Jaccard Similarity:{jaccard_sim:.4f} | F1 :{f1_sim:.4f} | Runtime Benefits:{runtime_kb_y - runtime_y:.3f}"
+        )
+        counter += 1
+    # Read the data into pandas dataframe
+    df = pd.DataFrame(results)
+    # Save the experimental results into csv file.
+    output_path_name = os.path.join(args.output_dir, f"{args.model.lower()}_results.csv")
+    df.to_csv(output_path_name, index=False)
+    print("\n\x1b[6;30;42mSuccessfully saved the results!\x1b[0m\n")
+    del df
+    # Load the saved CSV file.
+    df = pd.read_csv(output_path_name)
+    # Extract the numerical features.
+    numerical_df = df.select_dtypes(include=["number"])
+    # Extract the type of owl concepts
+    df_g = df.groupby(by="Type")
+    print(df_g["Type"].count())
+    mean_df = df_g[numerical_df.columns].mean()
+    print(mean_df)
+
+    ## Write results as LaTex table
+    model_name = args.model.capitalize() if args.model.lower() not in ["lstm", "gru"] else args.model.upper()
+    dataset_name = " ".join(list(map(str.capitalize, [name for name in args.dataset_dir.split("/") if name.strip()][-1].split("_"))))
+    dataset_name_lower = "_".join(list(map(str.lower, dataset_name.split(" "))))
+    latex_str = dataframe_to_latex(mean_df, caption=args.caption, label="tab:"+model_name.lower()+"_"+dataset_name_lower)
+    with open(os.path.join(args.output_dir, f"{args.model.lower()}_latex_results.txt"), "w") as f:
+        f.write(latex_str)
+
+def get_default_arguments(description=None):
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--dataset_dir", type=str, default=None,
+                        help="The path of a folder containing training_data.json, which contains a list of class expressions or list of tuples where the first elements are class expressions."
+                             ",e.g., datasets/carcinogenesis/")
+    parser.add_argument("--output_dir", type=str, default=None,
+                        help="The location where to store the trained model and training results.")
+    parser.add_argument("--caption", type=str, default="",
+                        help="The caption to use for the table of results.")
+    parser.add_argument("--th", type=float, default=0.5,
+                        help="Threshold on probabilities to decide which individual is an instance of a class expression")
+    parser.add_argument("--model", type=str,
+                        default="transformer",
+                        choices=["transformer", "composite", "lstm", "gru", "Transformer",
+                                 "Composite", "Lstm", "Gru", "TRANSFORMER", "COMPOSITE", "LSTM",
+                                 "GRU"],
+                        help="Available neural instance retrievers")
+    
+    parser.add_argument("--auto_detect_device", type=str2bool, default=True,
+                        help="Whether to automatically detect GPUs and use for computations")
+    parser.add_argument("--use_pma", type=str2bool, default=True,
+                        help="Whether to use PMA as encoder for atomic concepts via their sets of instances. This applies only to the `composite` model.")
+    parser.add_argument("--pma_model_path", type=str, default=None,
+                        help="Path to a pretrained PMA model.")
+    parser.add_argument("--pretrained_model_path", type=str, default=None,
+                        help="Path to a pretrained model, which must be of type `transformers.PretrainedModel`")
+    parser.add_argument("--chunk_size", type=int, default=1024,
+                        help="Batch size for scoring all individuals during instance retrieval")
+    parser.add_argument("--seed", type=int, default=42)
+    return parser.parse_args()
+
+
+def main():
+    args = get_default_arguments()
+    execute(args)
+
+
+if __name__ == "__main__":
+    main()
