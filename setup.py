@@ -1,9 +1,6 @@
 import re
 from setuptools import setup, find_packages
 
-# Min version :pip3 install -e .
-# Dev version :pip3 install -e .["dev"]
-
 _deps = [
     "torch>=2.2.0",
     "lightning>=2.1.3",
@@ -25,7 +22,6 @@ _deps = [
     "matplotlib>=3.8.2"
 ]
 
-# some of the values are versioned whereas others aren't.
 deps = {b: a for a, b in (re.findall(r"^(([^!=<>~ ]+)(?:[!=<>~ ].*)?$)", x)[0] for x in _deps)}
 
 
@@ -36,15 +32,13 @@ def deps_list(*pkgs):
 extras = dict()
 extras["min"] = deps_list(
     "pandas",
-    #"ontolearn",
-    "polars", "pyarrow", "rdflib",  # Loading KG
-    "torch", "lightning",  # Training KGE
-    "tiktoken",  # used for BPE
-    "matplotlib",  # Unclear why it is needed
+    "ontolearn",
+    "polars", "pyarrow", "rdflib",
+    "torch", "lightning",
+    "tiktoken",
+    "matplotlib",
     "numpy"
 )
-
-# TODO: Remove polars, rdflib, tiktoken, psutil, matplotlib from min
 
 extras["dev"] = (extras["min"] + deps_list("ruff", "pytest",
                                            "polars", "pyarrow",
@@ -55,14 +49,14 @@ with open('README.md', 'r') as fh:
     long_description = fh.read()
 setup(
     name="nir",
-    description="Compositional Neural Instance Retriever",
+    description="A Neural Instance Retriever",
     version="0.1.0",
     packages=find_packages(),
     extras_require=extras,
     install_requires=list(install_requires),
-    author="N\'Dah Jean Kouagou",
-    author_email='jeank@aims.ac.za',
-    url='https://github.com/dice-group/CoNeuralReasoner',
+    author="Author",
+    author_email='email@email.com',
+    url='https://github.com/fosterreproducibleresearch/NIR',
     classifiers=[
         "Programming Language :: Python :: 3.10",
         "License :: OSI Approved :: MIT License"],
