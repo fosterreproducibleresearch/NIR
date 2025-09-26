@@ -42,43 +42,6 @@ How to run? E.g.,
 python nir/scripts/retrieval_eval.py --dataset_dir datasets/semantic_bible/ --output_dir Retrieval_semb_lstm --model lstm --pretrained_model_path nir_pretrained_encoders/NIR_LSTM_semb/ --th 0.52  
 """
 
-def dataframe_to_latex(df, caption="Table Caption", label="tab:table_label", decimals=3):
-    """
-    Converts a pandas DataFrame to a LaTeX table.
-
-    Args:
-        df (pd.DataFrame): The DataFrame to convert.
-        caption (str): The table caption.
-        label (str): The table label.
-        decimals (int): Number of decimal places to round to.
-
-    Returns:
-        str: The LaTeX table string.
-    """
-
-    latex_str = "\\begin{table}[htbp]\n"
-    latex_str += "\\centering\n"
-    latex_str += "\\caption{" + caption + "}\n"
-    latex_str += "\\label{" + label + "}\n"
-    latex_str += "\\resizebox{\\textwidth}{!}{\\begin{tabular}{" + "c" * (df.shape[1] + 1) + "}\n"  # +1 for the index column
-    latex_str += "\\toprule\n"
-
-    # Header row
-    header = ["Type"] + list(df.columns)
-    latex_str += " & ".join(header) + " \\\\\n"
-    latex_str += "\\midrule\n"
-
-    # Data rows
-    for index, row in df.iterrows():
-        row_str = [index] + [f"{val:.{decimals}f}" if isinstance(val, float) else str(val) for val in row]
-        latex_str += " & ".join(row_str) + " \\\\\n"
-
-    latex_str += "\\bottomrule\n"
-    latex_str += "\\end{tabular}}\n"
-    latex_str += "\\end{table}"
-
-    return latex_str
-
 def execute(args):
     dataset_dir = args.dataset_dir
     print(f"\n=================> Running {args.model.capitalize()} on {dataset_dir} <======================\n")
@@ -206,28 +169,22 @@ def execute(args):
         counter += 1
     # Read the data into pandas dataframe
     df = pd.DataFrame(results)
+    df = df[df["Type"] != "OWLClass"].reset_index(drop=True)
     # Save the experimental results into csv file.
     output_path_name = os.path.join(args.output_dir, f"{args.model.lower()}_results.csv")
     df.to_csv(output_path_name, index=False)
     print("\n\x1b[6;30;42mSuccessfully saved the results!\x1b[0m\n")
-    del df
-    # Load the saved CSV file.
-    df = pd.read_csv(output_path_name)
     # Extract the numerical features.
     numerical_df = df.select_dtypes(include=["number"])
-    # Extract the type of owl concepts
-    df_g = df.groupby(by="Type")
-    print(df_g["Type"].count())
-    mean_df = df_g[numerical_df.columns].mean()
+    mean_df = df[numerical_df.columns].mean()
     print(mean_df)
 
-    ## Write results as LaTex table
-    model_name = args.model.capitalize() if args.model.lower() not in ["lstm", "gru"] else args.model.upper()
-    dataset_name = " ".join(list(map(str.capitalize, [name for name in args.dataset_dir.split("/") if name.strip()][-1].split("_"))))
-    dataset_name_lower = "_".join(list(map(str.lower, dataset_name.split(" "))))
-    latex_str = dataframe_to_latex(mean_df, caption=args.caption, label="tab:"+model_name.lower()+"_"+dataset_name_lower)
-    with open(os.path.join(args.output_dir, f"{args.model.lower()}_latex_results.txt"), "w") as f:
-        f.write(latex_str)
+    def round_to_4(x):
+        return f"{x:.4f}"
+
+    with open(os.path.join(args.output_dir, f"{args.model.lower()}_avg_results.txt"), "w") as f:
+        f.write(" & ".join(list(numerical_df.columns)) + "\n")
+        f.write(" & ".join(list(map(round_to_4, mean_df.values.tolist()))) + "\n")
 
 def get_default_arguments(description=None):
     parser = argparse.ArgumentParser(add_help=False)

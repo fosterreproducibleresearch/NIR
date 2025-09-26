@@ -1,40 +1,40 @@
 #!/bin/bash
 # Family
-#cnir --dataset_dir ./datasets/family/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_family --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/family/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_family --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/family/ --output_dir cnir_pretrained_encoders/CNIR_GRU_family --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/family/ --output_dir new_train_dir/NIR_Transformer_family --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/family/ --output_dir new_train_dir/NIR_LSTM_family --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/family/ --output_dir new_train_dir/NIR_GRU_family --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
 
 # Semantic Bible
-#cnir --dataset_dir ./datasets/semantic_bible/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_semb --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/semantic_bible/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_semb --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-cnir --dataset_dir ./datasets/semantic_bible/ --output_dir cnir_pretrained_encoders/CNIR_GRU_semb --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/semantic_bible/ --output_dir new_train_dir/NIR_Transformer_semb --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/semantic_bible/ --output_dir new_train_dir/NIR_LSTM_semb --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/semantic_bible/ --output_dir new_train_dir/NIR_GRU_semb --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
 
 # Lymphography
-#cnir --dataset_dir ./datasets/lymphography/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_lymph --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/lymphography/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_lymph --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-cnir --dataset_dir ./datasets/lymphography/ --output_dir cnir_pretrained_encoders/CNIR_GRU_lymph --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/lymphography/ --output_dir new_train_dir/NIR_Transformer_lymph --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/lymphography/ --output_dir new_train_dir/NIR_LSTM_lymph --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/lymphography/ --output_dir new_train_dir/NIR_GRU_lymph --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
 
 # Suramin
-#cnir --dataset_dir ./datasets/suramin/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_suramin --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/suramin/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_suramin --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-cnir --dataset_dir ./datasets/suramin/ --output_dir cnir_pretrained_encoders/CNIR_GRU_suramin --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/suramin/ --output_dir new_train_dir/NIR_Transformer_suramin --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/suramin/ --output_dir new_train_dir/NIR_LSTM_suramin --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/suramin/ --output_dir new_train_dir/NIR_GRU_suramin --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
 
 # Animals
-#cnir --dataset_dir ./datasets/animals/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_animals --num_example 20 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/animals/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_animals --num_example 20 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/animals/ --output_dir cnir_pretrained_encoders/CNIR_GRU_animals --num_example 20 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/animals/ --output_dir new_train_dir/NIR_Transformer_animals --num_example 20 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/animals/ --output_dir new_train_dir/NIR_LSTM_animals --num_example 20 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/animals/ --output_dir new_train_dir/NIR_GRU_animals --num_example 20 --epochs 400 --model GRU --batch_size 256 --num_workers 0
 
 # Nctrer
-cnir --dataset_dir ./datasets/nctrer/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_nctrer --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-cnir --dataset_dir ./datasets/nctrer/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_nctrer --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-cnir --dataset_dir ./datasets/nctrer/ --output_dir cnir_pretrained_encoders/CNIR_GRU_nctrer --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/nctrer/ --output_dir new_train_dir/NIR_Transformer_nctrer --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/nctrer/ --output_dir new_train_dir/NIR_LSTM_nctrer --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/nctrer/ --output_dir new_train_dir/NIR_GRU_nctrer --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
 
 # Mutagenesis
-cnir --dataset_dir ./datasets/mutagenesis/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_mutagen --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-cnir --dataset_dir ./datasets/mutagenesis/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_mutagen --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-cnir --dataset_dir ./datasets/mutagenesis/ --output_dir cnir_pretrained_encoders/CNIR_GRU_mutagen --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/mutagenesis/ --output_dir new_train_dir/NIR_Transformer_mutagen --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/mutagenesis/ --output_dir new_train_dir/NIR_LSTM_mutagen --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/mutagenesis/ --output_dir new_train_dir/NIR_GRU_mutagen --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0
 
 # Carcinogenesis
-#cnir --dataset_dir ./datasets/carcinogenesis/ --output_dir cnir_pretrained_encoders/CNIR_Transformer_carcino --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/carcinogenesis/ --output_dir cnir_pretrained_encoders/CNIR_LSTM_carcino --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
-#cnir --dataset_dir ./datasets/carcinogenesis/ --output_dir cnir_pretrained_encoders/CNIR_GRU_carcino --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/carcinogenesis/ --output_dir new_train_dir/NIR_Transformer_carcino --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/carcinogenesis/ --output_dir new_train_dir/NIR_LSTM_carcino --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+nir --dataset_dir ./datasets/carcinogenesis/ --output_dir new_train_dir/NIR_GRU_carcino --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+nir --dataset_dir ./datasets/family/ --output_dir new_train_dir/NIR_Composite_family --num_example 50 --pma_model_path pma_pretrained/PMA_family/model.pt --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
+
+nir --dataset_dir ./datasets/animals/ --output_dir new_train_dir/NIR_Composite_animals --num_example 20 --pma_model_path pma_pretrained/PMA_animals/model.pt  --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
+
+nir --dataset_dir ./datasets/semantic_bible/ --output_dir new_train_dir/NIR_Composite_semb --num_example 50 --pma_model_path pma_pretrained/PMA_semb/model.pt  --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
+
+nir --dataset_dir ./datasets/lymphography/ --output_dir new_train_dir/NIR_Composite_lymph --num_example 50 --pma_model_path pma_pretrained/PMA_lymph/model.pt  --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
+
+nir --dataset_dir ./datasets/nctrer/ --output_dir new_train_dir/NIR_Composite_nctrer --num_example 50 --pma_model_path pma_pretrained/PMA_nctrer/model.pt  --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
+
+nir --dataset_dir ./datasets/suramin/ --output_dir new_train_dir/NIR_Composite_suramin --num_example 50 --pma_model_path pma_pretrained/PMA_suramin/model.pt  --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
+
+nir --dataset_dir ./datasets/mutagenesis/ --output_dir new_train_dir/NIR_Composite_mutagen --num_example 100 --pma_model_path pma_pretrained/PMA_mutagen/model.pt  --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
+
+nir --dataset_dir ./datasets/carcinogenesis/ --output_dir new_train_dir/NIR_Composite_carcino --num_example 50 --pma_model_path pma_pretrained/PMA_carcino/model.pt  --epochs 400 --model Composite --use_pma True --batch_size 256 --num_workers 0
