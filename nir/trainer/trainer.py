@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.utils.data import DataLoader
 from tqdm import trange
+from torch.nn.utils import clip_grad_value_
 
 from nir.base import BaseTrainer
 from nir.dataset import Dataset, CompositeDataset, InferenceDataset
@@ -18,7 +19,7 @@ class Trainer(BaseTrainer):
     def __init__(self, model, tokenizer, data, embeddings, all_individuals, concept_to_instance_set,
                  num_examples, th, optimizer, pretrained_model_path=None, output_dir=None,
                  epochs=300, batch_size=256,
-                 num_workers=4, lr=3.5e-4, train_test_split=True):
+                 num_workers=4, lr=3.5e-4, clip=1.0, train_test_split=True):
         super().__init__(model, data, embeddings, all_individuals, concept_to_instance_set,
                          num_examples, th, optimizer, output_dir, epochs, batch_size, num_workers,
                          lr)
@@ -30,6 +31,7 @@ class Trainer(BaseTrainer):
         self.all_ind_embs = torch.FloatTensor(
             self.embeddings.loc[self.all_individuals_arr].values).to(self.device)
         self.scheduler = CosineAnnealingLR(self.optimizer, T_max=40, eta_min=1e-4)
+        self.clip_value = clip
         try:
             self.load_data()
         except Exception as e:
@@ -166,6 +168,7 @@ class Trainer(BaseTrainer):
             else:
                 _, loss = self.model(exprs, ind_embs, component_embeddings_dict, label=labels)
             loss.backward()
+            clip_grad_value_(self.model.parameters(), clip_value=self.clip_value)
             self.optimizer.step()
 
             actual = [self.concept_to_instance_set[e] for e in exprs]

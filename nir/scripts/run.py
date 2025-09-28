@@ -36,8 +36,8 @@ def get_default_arguments(description=None):
     parser.add_argument("--use_pma", type=str2bool, default=True, help="Whether to use PMA as encoder for atomic concepts via their sets of instances. This applies only to the `composite` model.")
     parser.add_argument("--pma_model_path", type=str, default=None, help="Path to a pretrained PMA model.")
     parser.add_argument("--pe_dropout", type=float, default=None, help="Dropout probability in positional encoding.")
-    parser.add_argument("--num_encoder_layers", type=int, default=None, help="Number of encoder layers in transformer.")
-    parser.add_argument("--num_rnn_layers", type=int, default=None, help="Number of encoder layers in RNNs.")
+    parser.add_argument("--num_encoder_layers", type=int, default=2, help="Number of encoder layers in transformer.")
+    parser.add_argument("--num_rnn_layers", type=int, default=3, help="Number of encoder layers in RNNs.")
     parser.add_argument("--num_attention_heads", type=int, default=None, help="Number of attention heads in transformer.")
     parser.add_argument("--vocab_size", type=int, default=None, help="Embedding lookup table size.")
     parser.add_argument("--train_tokenizer", type=str2bool, default=True, help="Whether to train a tokenizer on atomic concept names, role names, and description logic-specific tokens")
@@ -50,6 +50,7 @@ def get_default_arguments(description=None):
     parser.add_argument("--num_workers", type=int, default=4,
                         help="Number of CPUs to use for batch data loading.")
     parser.add_argument("--lr", type=float, default=3.5e-4)
+    parser.add_argument("--clip_value", type=float, default=1.0)
     parser.add_argument("--train_test_split", type=str2bool, default=True)
     parser.add_argument("--random_seed", type=int, default=42)
     return parser.parse_args()

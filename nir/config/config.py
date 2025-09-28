@@ -10,7 +10,7 @@ class NIRConfig(PretrainedConfig):
                  embedding_dim=256,
                  pe_dropout=0.1,
                  max_length=128,
-                 vocab_size=1000,
+                 vocab_size=512,
                  **kwargs):
         super().__init__(**kwargs)
         self.num_attention_heads = num_attention_heads

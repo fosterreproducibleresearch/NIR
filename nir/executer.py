@@ -72,52 +72,109 @@ class Execute:
             valid_inds = [ind for ind in all_individuals if ind in self.embeddings.index]
             self.all_individuals = valid_inds
 
-        if self.args.pretrained_tokenizer_path and self.args.model.lower() != "composite":
+        if self.args.pretrained_model_path and self.args.model.lower() != "composite":
             try:
-                self.tokenizer = AutoTokenizer.from_pretrained(self.args.pretrained_tokenizer_path)
+                self.tokenizer = AutoTokenizer.from_pretrained(self.args.pretrained_model_path)
                 self.can_use_pretrained_model = True
             except Exception as e:
                 print(e)
                 print("\nSkipping...")
-                if not hasattr(self, "kb"):
-                    self.kb = KnowledgeBase(path=f"{self.dataset_dir}/kb/ontology.owl")
-                renderer = DLSyntaxObjectRenderer()
-                atomic_concept_names = frozenset(
-                    [renderer.render(a) for a in self.kb.ontology.classes_in_signature()])
-                role_names = frozenset([r.str.split("/")[-1].split("#")[-1] for r in
-                                        self.kb.ontology.object_properties_in_signature()] +
-                                       [r.str.split("/")[-1].split("#")[-1] for r in
-                                        self.kb.ontology.data_properties_in_signature()])
-                Vocab = ['⊔', '⊓', '∃', '∀', '¬', '⊤', '⊥', ')', '(', '.', '>=', '<=', 'True',
-                         'False', '[', ']', '{', '}', '⁻'] + \
-                        list(atomic_concept_names) + list(role_names)
-                tokenizer = Tokenizer(BPE(unk_token='[UNK]'))
-                trainer = BpeTrainer(special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
+                #if not hasattr(self, "kb"):
+                #    self.kb = KnowledgeBase(path=f"{self.dataset_dir}/kb/ontology.owl")
+                #renderer = DLSyntaxObjectRenderer()
+                #atomic_concept_names = frozenset(
+                #    [renderer.render(a) for a in self.kb.ontology.classes_in_signature()])
+                #role_names = frozenset([r.str.split("/")[-1].split("#")[-1] for r in
+                #                        self.kb.ontology.object_properties_in_signature()] +
+                #                       [r.str.split("/")[-1].split("#")[-1] for r in
+                #                        self.kb.ontology.data_properties_in_signature()])
+                #Vocab = ['⊔', '⊓', '∃', '∀', '¬', '⊤', '⊥', ')', '(', '.', '>=', '<=', 'True',
+                #         'False', '[', ']', '{', '}', '⁻'] + \
+                #        list(atomic_concept_names) + list(role_names)
+                #tokenizer = Tokenizer(BPE(unk_token='[UNK]'))
+                #trainer = BpeTrainer(special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
+                #tokenizer.pre_tokenizer = WhitespaceSplit()
+                #tokenizer.train_from_iterator(Vocab, trainer)
+                #tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
+                #tokenizer.pad_token = "[PAD]"
+                #self.tokenizer = tokenizer
+                #
+                ## Train the tokenizer
+                tokenizer = Tokenizer(BPE(unk_token="<UNK>"))
                 tokenizer.pre_tokenizer = WhitespaceSplit()
-                tokenizer.train_from_iterator(Vocab, trainer)
-                tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
-                tokenizer.pad_token = "[PAD]"
-                self.tokenizer = tokenizer
+                
+                # Trainer with vocab size limit
+                trainer = BpeTrainer(
+                    vocab_size=512,  # <-- Set your max vocabulary size here
+                    special_tokens=["<PAD>", "<UNK>", "<START>", "<END>"]
+                )
+                
+                # Train on full SMILES sequences
+                tokenizer.train_from_iterator(self.data, trainer=trainer)
+                
+                # Wrap with PreTrainedTokenizerFast
+                wrapped_tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
+                wrapped_tokenizer.pad_token = "<PAD>"
+                wrapped_tokenizer.unk_token = "<UNK>"
+                
+                # Optional: Set other special tokens
+                wrapped_tokenizer.cls_token = "<START>"
+                wrapped_tokenizer.sep_token = "<END>"
+                
+                # Save or inspect
+                print("Vocab size:", wrapped_tokenizer.vocab_size)
+                print("UNK token:", wrapped_tokenizer.unk_token)
+                print("UNK token ID:", wrapped_tokenizer.unk_token_id)
+                self.tokenizer = wrapped_tokenizer
                 self.can_use_pretrained_model = False
         elif self.args.model.lower() != "composite":
-            renderer = DLSyntaxObjectRenderer()
-            atomic_concept_names = frozenset(
-                [renderer.render(a) for a in self.kb.ontology.classes_in_signature()])
-            role_names = frozenset([r.str.split("/")[-1].split("#")[-1] for r in
-                                    self.kb.ontology.object_properties_in_signature()] +
-                                   [r.str.split("/")[-1].split("#")[-1] for r in
-                                    self.kb.ontology.data_properties_in_signature()])
-            Vocab = ['⊔', '⊓', '∃', '∀', '¬', '⊤', '⊥', ')', '(', '.', '>=', '<=', 'True', 'False',
-                     '[', ']', '{', '}', '⁻'] + \
-                    list(atomic_concept_names) + list(role_names)
-            tokenizer = Tokenizer(BPE(unk_token='[UNK]'))
-            trainer = BpeTrainer(special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
+            #renderer = DLSyntaxObjectRenderer()
+            #atomic_concept_names = frozenset(
+            #    [renderer.render(a) for a in self.kb.ontology.classes_in_signature()])
+            #role_names = frozenset([r.str.split("/")[-1].split("#")[-1] for r in
+            #                        self.kb.ontology.object_properties_in_signature()] +
+            #                       [r.str.split("/")[-1].split("#")[-1] for r in
+            #                        self.kb.ontology.data_properties_in_signature()])
+            #Vocab = ['⊔', '⊓', '∃', '∀', '¬', '⊤', '⊥', ')', '(', '.', '>=', '<=', 'True', 'False',
+            #         '[', ']', '{', '}', '⁻'] + \
+            #        list(atomic_concept_names) + list(role_names)
+            #tokenizer = Tokenizer(BPE(unk_token='[UNK]'))
+            #trainer = BpeTrainer(special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
+            #tokenizer.pre_tokenizer = WhitespaceSplit()
+            #tokenizer.train_from_iterator(Vocab, trainer)
+            #tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
+            #tokenizer.pad_token = "[PAD]"
+            #tokenizer.pad_token_id = 3
+            #self.tokenizer = tokenizer
+            #
+            #
+            ## Train the tokenizer
+            tokenizer = Tokenizer(BPE(unk_token="<UNK>"))
             tokenizer.pre_tokenizer = WhitespaceSplit()
-            tokenizer.train_from_iterator(Vocab, trainer)
-            tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
-            tokenizer.pad_token = "[PAD]"
-            tokenizer.pad_token_id = 3
-            self.tokenizer = tokenizer
+            
+            # Trainer with vocab size limit
+            trainer = BpeTrainer(
+                vocab_size=512,  # <-- Set your max vocabulary size here
+                special_tokens=["<PAD>", "<UNK>", "<START>", "<END>"]
+            )
+            
+            # Train on full SMILES sequences
+            tokenizer.train_from_iterator(self.data, trainer=trainer)
+            
+            # Wrap with PreTrainedTokenizerFast
+            wrapped_tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
+            wrapped_tokenizer.pad_token = "<PAD>"
+            wrapped_tokenizer.unk_token = "<UNK>"
+            
+            # Optional: Set other special tokens
+            wrapped_tokenizer.cls_token = "<START>"
+            wrapped_tokenizer.sep_token = "<END>"
+            
+            # Save or inspect
+            print("Vocab size:", wrapped_tokenizer.vocab_size)
+            print("UNK token:", wrapped_tokenizer.unk_token)
+            print("UNK token ID:", wrapped_tokenizer.unk_token_id)
+            self.tokenizer = wrapped_tokenizer
             self.can_use_pretrained_model = False
         else:
             self.tokenizer = None
@@ -151,6 +208,7 @@ class Execute:
                 elif self.args.model.lower() == "lstm":
                     model_config.__setattr__("pad_token_id", self.tokenizer.pad_token_id)
                     self.model = NIRLSTM(model_config)
+                    print("\n***LSTM: ", self.model.config.num_rnn_layers, "rnn layers\n")
                 elif self.args.model.lower() == "gru":
                     model_config.__setattr__("pad_token_id", self.tokenizer.pad_token_id)
                     self.model = NIRGRU(model_config)
@@ -207,7 +265,7 @@ class Execute:
                                self.all_individuals, self.concept_to_instance_set,
                                self.args.num_examples, self.args.th, self.args.optimizer, self.args.pretrained_model_path,
                                self.args.output_dir, self.args.epochs, self.args.batch_size,
-                               self.args.num_workers, self.args.lr, self.args.train_test_split)
+                               self.args.num_workers, self.args.lr, self.args.clip_value, self.args.train_test_split)
         self.trainer.train()
 
 
@@ -225,6 +283,7 @@ class ExecuteTest:
         self.num_examples = None
         self.epochs = None
         self.train_test_split = None
+        
     def read_and_maybe_preprocess_data(self) -> None:
         if not os.path.exists(self.args.dataset_dir):
             raise FileNotFoundError(f"Path to dataset does not exist: {self.args.dataset_dir}")
@@ -255,8 +314,8 @@ class ExecuteTest:
             valid_inds = [ind for ind in all_individuals if ind in self.embeddings.index]
             self.all_individuals = valid_inds
 
-        if self.args.pretrained_tokenizer_path and self.args.model.lower() != "composite":
-            self.tokenizer = AutoTokenizer.from_pretrained(self.args.pretrained_tokenizer_path)
+        if self.args.pretrained_model_path and self.args.model.lower() != "composite":
+            self.tokenizer = AutoTokenizer.from_pretrained(self.args.pretrained_model_path)
             self.can_use_pretrained_model = True
 
         else:
@@ -361,6 +420,8 @@ class ExecuteTestNIR:
                                self.args.output_dir, self.epochs, self.args.batch_size,
                                self.args.num_workers, self.args.lr, self.train_test_split)
         return self.trainer
+
+
 class ExecutePMA:
     """
     A class for training and evaluating PMAnet model.
