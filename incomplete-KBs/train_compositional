@@ -1,0 +1,14 @@
+#!/bin/bash
+# Family
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_Composite_family/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_family/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_Composite_family/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_family/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_Composite_family/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_family/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+# Semantic Bible
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Composite_semb/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_semb/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Composite_semb/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_semb/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Composite_semb/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_semb/model.pt --use_pma True --batch_size 256 --num_workers 0

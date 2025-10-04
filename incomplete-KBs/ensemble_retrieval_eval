@@ -1,0 +1,17 @@
+#!/bin/bash
+
+## Family
+python ../nir/scripts/retrieval_eval_ensemble.py --dataset_dir family/ --output_dir Results/Ensemble_Eval_family/25 --models lstm gru transformer composite --pretrained_model_paths  incomplete_train_dir/NIR_LSTM_family/25 incomplete_train_dir/NIR_GRU_family/25 incomplete_train_dir/NIR_Transformer_family/25 incomplete_train_dir/NIR_Composite_family/25 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45 --complete_percent 25
+
+python ../nir/scripts/retrieval_eval_ensemble.py --dataset_dir family/ --output_dir Results/Ensemble_Eval_family/50 --models lstm gru transformer composite --pretrained_model_paths  incomplete_train_dir/NIR_LSTM_family/50 incomplete_train_dir/NIR_GRU_family/50 incomplete_train_dir/NIR_Transformer_family/50 incomplete_train_dir/NIR_Composite_family/50 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45 --complete_percent 50
+
+python ../nir/scripts/retrieval_eval_ensemble.py --dataset_dir family/ --output_dir Results/Ensemble_Eval_family/75 --models lstm gru transformer composite --pretrained_model_paths  incomplete_train_dir/NIR_LSTM_family/75 incomplete_train_dir/NIR_GRU_family/75 incomplete_train_dir/NIR_Transformer_family/75 incomplete_train_dir/NIR_Composite_family/75 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45 --complete_percent 75
+
+
+## Semantic Bible
+python ../nir/scripts/retrieval_eval_ensemble.py --dataset_dir semantic_bible/ --output_dir Results/Ensemble_Eval_semb/25 --models lstm gru transformer composite --pretrained_model_paths  incomplete_train_dir/NIR_LSTM_semb/25 incomplete_train_dir/NIR_GRU_semb/25 incomplete_train_dir/NIR_Transformer_semb/25 incomplete_train_dir/NIR_Composite_semb/25 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45 --complete_percent 25
+
+python ../nir/scripts/retrieval_eval_ensemble.py --dataset_dir semantic_bible/ --output_dir Results/Ensemble_Eval_semb/50 --models lstm gru transformer composite --pretrained_model_paths  incomplete_train_dir/NIR_LSTM_semb/50 incomplete_train_dir/NIR_GRU_semb/50 incomplete_train_dir/NIR_Transformer_semb/50 incomplete_train_dir/NIR_Composite_semb/50 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45 --complete_percent 50
+
+python ../nir/scripts/retrieval_eval_ensemble.py --dataset_dir semantic_bible/ --output_dir Results/Ensemble_Eval_semb/75 --models lstm gru transformer composite --pretrained_model_paths  incomplete_train_dir/NIR_LSTM_semb/75 incomplete_train_dir/NIR_GRU_semb/75 incomplete_train_dir/NIR_Transformer_semb/75 incomplete_train_dir/NIR_Composite_semb/75 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45 --complete_percent 75
+

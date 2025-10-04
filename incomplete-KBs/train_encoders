@@ -1,0 +1,28 @@
+#!/bin/bash
+# Family
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_Transformer_family/25 --complete_percent 25 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_Transformer_family/50 --complete_percent 50 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_Transformer_family/75 --complete_percent 75 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_GRU_family/25 --complete_percent 25 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_GRU_family/50 --complete_percent 50 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_GRU_family/75 --complete_percent 75 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_LSTM_family/25 --complete_percent 25 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_LSTM_family/50 --complete_percent 50 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_LSTM_family/75 --complete_percent 75 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+
+#
+## Semantic Bible
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Transformer_semb/25 --complete_percent 25 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Transformer_semb/50 --complete_percent 50 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Transformer_semb/75 --complete_percent 75 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_GRU_semb/25 --complete_percent 25 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_GRU_semb/50 --complete_percent 50 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_GRU_semb/75 --complete_percent 75 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_LSTM_semb/25 --complete_percent 25 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_LSTM_semb/50 --complete_percent 50 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_LSTM_semb/75 --complete_percent 75 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+

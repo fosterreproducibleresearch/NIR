@@ -46,7 +46,7 @@ def gen_pe(max_length, d_model, n):
 
 def jaccard_index(actual, retrieved):
     if len(actual.union(retrieved)) == 0:
-        print("Both empty")
+        #print("Both empty")
         return 1
     score = len(actual.intersection(retrieved))/len(actual.union(retrieved))
     return score
@@ -140,27 +140,33 @@ def get_short_name(name):
     return _name
 
 @timeit
-def read_embs(base_path, merge=False):
+def read_embs(base_path, merge=False, complete_percent=None):
+    common_path = f"{base_path}/embeddings"
+    if complete_percent:
+        common_path = f"{base_path}/embeddings/{complete_percent}"
     if not merge:
-        df = pd.read_csv(glob.glob(f'{base_path}/embeddings/*entity_embeddings.csv')[0], index_col=0).drop_duplicates(subset="0")
+        df = pd.read_csv(glob.glob(f'{common_path}/*entity_embeddings.csv')[0], index_col=0).drop_duplicates(subset="0")
         df.index = df.index.map(get_short_name)
         df = df[~df.index.duplicated(keep='first')]
         return df
-    files = glob.glob(f'{base_path}/embeddings/*entity_embeddings.csv') + glob.glob(f'{base_path}/embeddings/*relation_embeddings.csv')
+    files = glob.glob(f'{common_path}/*entity_embeddings.csv') + glob.glob(f'{common_path}/*relation_embeddings.csv')
     dfs = pd.concat([pd.read_csv(file, index_col=0) for file in files], axis=0).drop_duplicates(subset="0")
     dfs.index = dfs.index.map(get_short_name)
     dfs = dfs[~dfs.index.duplicated(keep='first')]
     return dfs
 
 @timeit
-def read_embs_and_apply_agg(base_path, merge=False, nn_agg=None, device="cpu"):
+def read_embs_and_apply_agg(base_path, merge=False, complete_percent=None, nn_agg=None, device="cpu"):
     if torch.cuda.is_available():
         device = "cuda"
     if nn_agg is not None:
         nn_agg.to(device)
         print(f"\nBuilding atomic concept embeddings with PMA: {nn_agg}\n(A permutation-invariant architecture)\n")
-    kb = KnowledgeBase(path=f'{base_path}/kb/ontology.owl')
-    embs = read_embs(base_path, merge)
+    if complete_percent:
+        kb = KnowledgeBase(path=f'{base_path}/kb/ontology_sub_{complete_percent}.owl')
+    else:
+        kb = KnowledgeBase(path=f'{base_path}/kb/ontology.owl')
+    embs = read_embs(base_path, merge, complete_percent=complete_percent)
     
     classes = [c.str.split("/")[-1] for c in kb.ontology.classes_in_signature()]
     classtoinstance = {C.str.split("/")[-1]: list({ind.str.split("/")[-1] for ind in kb.individuals(C) if

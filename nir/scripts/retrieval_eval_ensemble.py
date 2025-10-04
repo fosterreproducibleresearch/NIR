@@ -40,12 +40,12 @@ from nir.utils import score_all_inds, score_all_inds_composite
 """
 How to run? E.g.,
 
-python nir/scripts/retrieval_eval.py --dataset_dir datasets/semantic_bible/ --output_dir Retrieval_semb_lstm --model lstm --pretrained_model_path nir_pretrained_encoders/NIR_LSTM_semb/ --th 0.5  
+python nir/scripts/retrieval_eval_ensemble.py --dataset_dir datasets/semantic_bible/ --output_dir Retrieval_semb_ensemble --models lstm gru transformer composite --pretrained_model_paths  new_train_dir/NIR_LSTM_semb/ new_train_dir/NIR_GRU_semb/ new_train_dir/NIR_Transformer_semb/ new_train_dir/NIR_Composite_semb/ --pma_model_path pma_pretrained/PMA_semb --th 0.5  
 """
 
 def execute(args):
     dataset_dir = args.dataset_dir
-    print(f"\n=================> Running {args.model.capitalize()} on {dataset_dir} <======================\n")
+    print(f"\n=================> Running {args.models} on {dataset_dir} <======================\n")
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
     # Fix the random seed.
@@ -53,11 +53,12 @@ def execute(args):
     random.seed(seed)
     np.random.seed(seed)
     pma_net = None
-    if args.model.lower()=="composite" and args.use_pma:
+    if any(model_name.lower()=="composite" for model_name in args.models):
         pma_net = PMAnet(NIRConfig().embedding_dim, NIRConfig().num_attention_heads, 1)
         pma_net.load_state_dict(
             torch.load(args.pma_model_path, map_location="cpu", weights_only=True))
         pma_net.eval()
+        
     kb, all_individuals, embeddings = read_embs_and_apply_agg(args.dataset_dir, nn_agg=pma_net,
                                                               merge=True, complete_percent=args.complete_percent)
     if args.complete_percent is not None:
@@ -77,32 +78,39 @@ def execute(args):
     elif ":" in kb_namespace:
         kb_namespace = kb_namespace[:kb_namespace.rfind(":")] + ":"
     expression_parser = DLSyntaxParser(kb_namespace)
-    
+
     AutoConfig.register("nir", NIRConfig)
-    if args.model.lower() == "composite":
-        #NIRConfig.batch_training = False
-        AutoModel.register(NIRConfig, NIRComposite)
-    elif args.model.lower() == "lstm":
-        AutoModel.register(NIRConfig, NIRLSTM)
-    elif args.model.lower() == "gru":
-        AutoModel.register(NIRConfig, NIRGRU)
-    elif args.model.lower() == "transformer":
-        AutoModel.register(NIRConfig, NIRTransformer)
-    model = AutoModel.from_pretrained(args.pretrained_model_path)
-    tokenizer = None
-    if args.model.lower() != "composite":
-        tokenizer = AutoTokenizer.from_pretrained(args.pretrained_model_path)
-    print("\n\x1b[6;30;42mSuccessfully loaded a pretrained model!\x1b[0m\n")
-    # Set a device for computations
-    device = "cpu"
+    models = []
+
+    for model_name, pretrained_model_path in zip(args.models, args.pretrained_model_paths):
+        if model_name.lower() == "composite":
+            #NIRConfig.batch_training = False
+            AutoModel.register(NIRConfig, NIRComposite)
+        elif model_name.lower() == "lstm":
+            AutoModel.register(NIRConfig, NIRLSTM)
+        elif model_name.lower() == "gru":
+            AutoModel.register(NIRConfig, NIRGRU)
+        elif model_name.lower() == "transformer":
+            AutoModel.register(NIRConfig, NIRTransformer)
+        model = AutoModel.from_pretrained(pretrained_model_path)
+        tokenizer = None
+        if model_name.lower() != "composite":
+            tokenizer = AutoTokenizer.from_pretrained(pretrained_model_path)
+        print("\n\x1b[6;30;42mSuccessfully loaded a pretrained model!\x1b[0m\n")
+        # Set a device for computations
+        device = "cpu"
+        if args.auto_detect_device:
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            model.to(device)
+        model.eval()
+
+        models.append((model, tokenizer))
+
     if args.auto_detect_device:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        model.to(device)
         all_ind_embs = all_ind_embs.to(model.device)
-    model.eval()
-    
+
     def nir_predict(model, expr, all_individuals_set, all_individuals_arr, all_ind_embs, embeddings, th):
-        start_time = time.time()
         if isinstance(expr, str):
             expr = [expr]
         data = InferenceDataset(data=expr, all_individuals=all_individuals_set,
@@ -113,21 +121,29 @@ def execute(args):
         component_embeddings_dict = [{key: val.to(device) for key, val in component_embeddings_dict.items()}]
         
         outputs = score_all_inds_composite(model, [expr], all_ind_embs, component_embeddings_dict).squeeze()
-        retrieved = set(all_individuals_arr[np.where(outputs > th)[0]])  
-        time_taken = time.time() - start_time
-        return retrieved, time_taken
+        return outputs
 
     def nir_encoders_predict(model, tokenizer, all_ind_embs, expr, all_individuals_arr, th):
-        start_time = time.time()
         if isinstance(expr, str):
             expr = [expr]
         outputs = score_all_inds(model, tokenizer, all_ind_embs, expr, hidden_size=all_ind_embs.shape[1], chunk_size=args.chunk_size).squeeze()
-        #print(outputs.shape)
+        retrieved = set(all_individuals_arr[np.where(outputs > th)[0]])
+        return outputs
+
+    def ensemble_predict(models, expr, all_individuals_set, all_individuals_arr, all_ind_embs, embeddings, th):
+        start_time = time.time()
+        outputs = []
+        for model, tokenizer in models:
+            if tokenizer is None:
+                scores = nir_predict(model, expr, all_individuals_set, all_individuals_arr, all_ind_embs, embeddings, th)                
+            else:
+                scores = nir_encoders_predict(model, tokenizer, all_ind_embs, expr, all_individuals_arr, th)
+            outputs.append(scores)
+        outputs = np.average(outputs, axis=0, weights=[0.15, 0.25, 0.55, 0.05])
         retrieved = set(all_individuals_arr[np.where(outputs > th)[0]])
         time_taken = time.time() - start_time
-        #all_ind_embs.shape[1]
         return retrieved, time_taken
-
+        
     # Retrieval Results
     def concept_retrieval(expr):
         start_time = time.time()
@@ -144,21 +160,20 @@ def execute(args):
     with open(args.dataset_dir+'/data/test_data.json') as f:
         concepts = json.load(f)
         concepts = list(map(expression_parser.parse, concepts))
+        
     results = []
     counter = 0
     for expression in (tqdm_bar := tqdm(concepts, position=0, leave=True)):
-        expr = dls_renderer.render(expression) #.get_nnf()
+        expr = dls_renderer.render(expression.get_nnf())
         try:
-            if args.model.lower() == "composite":
-                retrieval_y, runtime_y = nir_predict(model, expr, all_individuals_set, all_individuals_arr, all_ind_embs, embeddings, args.th)
-            else:
-                retrieval_y, runtime_y = nir_encoders_predict(model, tokenizer, all_ind_embs, expr, all_individuals_arr, args.th)
+            retrieval_y, runtime_y = ensemble_predict(models, expr, all_individuals_set, all_individuals_arr, all_ind_embs, embeddings, args.th)
         except Exception as e: # Catch any exception.
             print(str(e))
             raise
         if complete_kb is not None:
             retrieval_kb_y, runtime_kb_y = ground_truth_retrieval(expr)
             retrieval_incomplete_kb_y, runtime_incomplete_kb_y = concept_retrieval(expr)
+            
             ## Compute metrics
             jaccard_sim = jaccard_similarity(retrieval_y, retrieval_kb_y)
             f1_sim = f1_set_similarity(retrieval_y, retrieval_kb_y)
@@ -205,7 +220,7 @@ def execute(args):
     df = pd.DataFrame(results)
     df = df[df["Type"] != "OWLClass"].reset_index(drop=True)
     # Save the experimental results into csv file.
-    output_path_name = os.path.join(args.output_dir, f"{args.model.lower()}_results.csv")
+    output_path_name = os.path.join(args.output_dir, f"ensemble_results.csv")
     df.to_csv(output_path_name, index=False)
     print("\n\x1b[6;30;42mSuccessfully saved the results!\x1b[0m\n")
     # Extract the numerical features.
@@ -216,7 +231,7 @@ def execute(args):
     def round_to_4(x):
         return f"{x:.4f}"
 
-    with open(os.path.join(args.output_dir, f"{args.model.lower()}_avg_results.txt"), "w") as f:
+    with open(os.path.join(args.output_dir, f"ensemble_avg_results.txt"), "w") as f:
         f.write(" & ".join(list(numerical_df.columns)) + "\n")
         f.write(" & ".join(list(map(round_to_4, mean_df.values.tolist()))) + "\n")
 
@@ -231,12 +246,9 @@ def get_default_arguments(description=None):
                         help="The caption to use for the table of results.")
     parser.add_argument("--th", type=float, default=0.5,
                         help="Threshold on probabilities to decide which individual is an instance of a class expression")
-    parser.add_argument("--model", type=str,
-                        default="transformer",
-                        choices=["transformer", "composite", "lstm", "gru", "Transformer",
-                                 "Composite", "Lstm", "Gru", "TRANSFORMER", "COMPOSITE", "LSTM",
-                                 "GRU"],
-                        help="Available neural instance retrievers")
+    parser.add_argument("--models", type=str, nargs="+",
+                        default=["transformer", "lstm", "gru", "composite"],
+                        help="List of neural instance retrievers")
     
     parser.add_argument("--auto_detect_device", type=str2bool, default=True,
                         help="Whether to automatically detect GPUs and use for computations")
@@ -244,8 +256,8 @@ def get_default_arguments(description=None):
                         help="Whether to use PMA as encoder for atomic concepts via their sets of instances. This applies only to the `composite` model.")
     parser.add_argument("--pma_model_path", type=str, default=None,
                         help="Path to a pretrained PMA model.")
-    parser.add_argument("--pretrained_model_path", type=str, default=None,
-                        help="Path to a pretrained model, which must be of type `transformers.PretrainedModel`")
+    parser.add_argument("--pretrained_model_paths", type=str, nargs="+", default=None,
+                        help="Paths to a pretrained models, which must be of type `transformers.PretrainedModel`")
     parser.add_argument("--chunk_size", type=int, default=1024,
                         help="Batch size for scoring all individuals during instance retrieval")
     parser.add_argument("--complete_percent", type=int, default=None, help="Parameter specifying the size of the subsampled graph for experiments on incompleteness. Allowed values are `25, 50, or 75`", choices=[25, 50, 75])

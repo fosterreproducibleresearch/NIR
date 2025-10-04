@@ -1,0 +1,14 @@
+#!/bin/bash
+# Family
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/25 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/50 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/75 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45
+
+# Semantic Bible
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/25 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/50 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/75 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45

@@ -29,11 +29,8 @@ class NIRTransformer(PreTrainedModel):
         self.activation = nn.Sigmoid()
         
     def forward(self, input_ids, attention_mask, label_features, labels=None):
-        embeddings = self.embedding(input_ids)# + self.positional_encoding[:input_ids.size(1), :]
-        transformer_output = self.encoder(embeddings,
-                                          #src_key_padding_mask=(~attention_mask.bool())
-                                                     ).mean(1)
-        #transformer_output = self.decoder(transformer_output.mean(1))#.mean(dim=1)#.flatten(start_dim=1, end_dim=2)
+        embeddings = self.embedding(input_ids)
+        transformer_output = self.encoder(embeddings).mean(1)
         n = label_features.shape[0]
         n_repeats = n // transformer_output.shape[0]
         transformer_output = torch.repeat_interleave(transformer_output, repeats=n_repeats, dim=0)

@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+#
+# subsample_owl_by_nodes.sh
+# Usage: ./subsample_owl_by_nodes.sh input.owl PERCENT output.owl
+# Example: ./subsample_owl_by_nodes.sh family.owl 50 family_sub.owl
+#
+# This script subsamples child elements inside:
+#   <Thing rdf:about="..."> ... </Thing>
+# and
+#   <owl:NamedIndividual rdf:about="..."> ... </owl:NamedIndividual>
+# It treats each child XML element as a unit (keeps whole elements), so the output stays well-formed XML/OWL.
+
+set -euo pipefail
+
+if [[ $# -ne 3 ]]; then
+  echo "Usage: $0 input.owl PERCENT output.owl"
+  exit 1
+fi
+
+INPUT="$1"
+PERCENT="$2"
+OUTPUT="$3"
+
+# Checks
+if ! command -v xmlstarlet >/dev/null 2>&1; then
+  echo "Error: xmlstarlet is required. Install with: sudo apt install xmlstarlet"
+  exit 1
+fi
+if ! command -v shuf >/dev/null 2>&1; then
+  echo "Error: shuf (coreutils) is required. Install with: sudo apt install coreutils"
+  exit 1
+fi
+
+# Validate percentage: integer 0..100
+if ! [[ "$PERCENT" =~ ^[0-9]+$ ]] || (( PERCENT < 0 )) || (( PERCENT > 100 )); then
+  echo "Error: PERCENT must be an integer between 0 and 100"
+  exit 1
+fi
+
+# Work on a temporary copy
+TMP=$(mktemp --suffix=.owl)
+trap 'rm -f "$TMP"' EXIT
+cp -- "$INPUT" "$TMP"
+
+# Robust XPath expressions:
+# - select Thing elements that have an attribute with local-name() = "about"
+# - select any NamedIndividual (e.g., owl:NamedIndividual) that has an attribute with local-name() = "about"
+THING_PARENT_XPATH="//*[local-name() = 'Thing' and @*[local-name() = 'about']]"
+NAMED_PARENT_XPATH="//*[local-name() = 'NamedIndividual' and @*[local-name() = 'about']]"
+
+# Function to subsample children for each matched parent element
+# Arguments:
+#  $1 : parent XPath selecting parent elements (e.g. THING_PARENT_XPATH)
+#  $2 : percent to keep (integer 0..100)
+subsample_children_for_parent() {
+  local parent_xpath="$1"
+  local percent="$2"
+
+  # total number of parent nodes
+  local total_parents
+  total_parents=$(xmlstarlet sel -t -v "count($parent_xpath)" "$TMP")
+  total_parents=${total_parents%.*}  # strip possible decimal
+
+  if (( total_parents == 0 )); then
+    return 0
+  fi
+
+  # iterate over parents by index
+  for idx in $(seq 1 "$total_parents"); do
+    # XPath selecting the children of the idx-th parent matching parent_xpath
+    child_xpath="($parent_xpath)[$idx]/*"
+
+    # count children
+    child_count=$(xmlstarlet sel -t -v "count($child_xpath)" "$TMP")
+    child_count=${child_count%.*}
+
+    # if 0 or 1 child, nothing to remove
+    if (( child_count <= 1 )); then
+      continue
+    fi
+
+    # if percent == 100 keep all
+    if (( percent >= 100 )); then
+      continue
+    fi
+
+    # compute how many to keep: ceil(child_count * percent / 100), ensure at least 1
+    keep=$(( (child_count * percent + 99) / 100 ))
+    if (( keep < 1 )); then keep=1; fi
+    if (( keep >= child_count )); then
+      continue
+    fi
+
+    # pick positions to keep (random)
+    # seq 1..child_count -> shuffle -> keep first $keep -> sort numerically
+    positions=$(seq 1 "$child_count" | shuf -n "$keep" | sort -n)
+
+    # build XPath condition like: position()=p1 or position()=p2 or ...
+    pos_cond=""
+    for p in $positions; do
+      if [[ -z "$pos_cond" ]]; then
+        pos_cond="position()=$p"
+      else
+        pos_cond="$pos_cond or position()=$p"
+      fi
+    done
+
+    # delete children NOT in the chosen positions (one xmlstarlet edit call)
+    delete_xpath="$child_xpath[not($pos_cond)]"
+    xmlstarlet ed -L -d "$delete_xpath" "$TMP"
+  done
+}
+
+# Run subsampling for Thing and NamedIndividual parents
+subsample_children_for_parent "$THING_PARENT_XPATH" "$PERCENT"
+subsample_children_for_parent "$NAMED_PARENT_XPATH" "$PERCENT"
+
+# Write output
+cp -- "$TMP" "$OUTPUT"
+
+echo "Subsampled OWL saved to: $OUTPUT"

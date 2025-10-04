@@ -21,6 +21,7 @@ def get_default_arguments(description=None):
                              ",e.g., datasets/carcinogenesis/data")
     parser.add_argument("--output_dir", type=str, default=None,
                         help="The location where to store the trained model and training results.")
+    parser.add_argument("--complete_percent", type=int, default=None, help="Parameter specifying the size of the subsampled graph for experiments on incompleteness. Allowed values are `25, 50, or 75`", choices=[25, 50, 75])
     parser.add_argument("--debug", type=str2bool, default=False, help="Whether to read only a few datapoints from training set.")
     parser.add_argument("--num_examples", type=int, default=100,
                         help="Number of examples to sample per learning problem during training")

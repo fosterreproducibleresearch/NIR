@@ -46,7 +46,8 @@ class Execute:
         if not os.path.exists(f"{self.args.dataset_dir}/kb/ontology.owl"):
             raise FileNotFoundError(
                 f"Path to dataset does not exist: {self.args.dataset_dir}/kb/ontology.owl")
-        if not glob.glob(f"{self.args.dataset_dir}/embeddings/*embeddings.csv"):
+        embs_path = f"{self.args.dataset_dir}/embeddings/{self.args.complete_percent}" if self.args.complete_percent else f"{self.args.dataset_dir}/embeddings"
+        if not glob.glob(f"{embs_path}/*embeddings.csv"):
             raise FileNotFoundError(f"No embeddings found at {self.args.dataset_dir}/embeddings/")
         if not glob.glob(f"{self.args.dataset_dir}/data/*.json"):
             raise FileNotFoundError(
@@ -56,9 +57,9 @@ class Execute:
                 self.pma_net = PMAnet(NIRConfig().embedding_dim, NIRConfig().num_attention_heads, 1)
                 self.pma_net.load_state_dict(torch.load(self.args.pma_model_path, map_location="cpu", weights_only=True))
             self.kb, self.all_individuals, self.embeddings = read_embs_and_apply_agg(
-                self.args.dataset_dir, nn_agg=self.pma_net if hasattr(self, "pma_net") else None, merge=True)
+                self.args.dataset_dir, nn_agg=self.pma_net if hasattr(self, "pma_net") else None, merge=True, complete_percent=self.args.complete_percent)
         else:
-            self.embeddings = read_embs(self.args.dataset_dir, merge=False)
+            self.embeddings = read_embs(self.args.dataset_dir, merge=False, complete_percent=self.args.complete_percent)
         remove_atomic_concepts = self.args.model.lower() == "composite"
         self.data = read_training_data(self.args.dataset_dir,
                                        remove_atomic_concepts=remove_atomic_concepts, debug=self.args.debug)
@@ -79,26 +80,6 @@ class Execute:
             except Exception as e:
                 print(e)
                 print("\nSkipping...")
-                #if not hasattr(self, "kb"):
-                #    self.kb = KnowledgeBase(path=f"{self.dataset_dir}/kb/ontology.owl")
-                #renderer = DLSyntaxObjectRenderer()
-                #atomic_concept_names = frozenset(
-                #    [renderer.render(a) for a in self.kb.ontology.classes_in_signature()])
-                #role_names = frozenset([r.str.split("/")[-1].split("#")[-1] for r in
-                #                        self.kb.ontology.object_properties_in_signature()] +
-                #                       [r.str.split("/")[-1].split("#")[-1] for r in
-                #                        self.kb.ontology.data_properties_in_signature()])
-                #Vocab = ['⊔', '⊓', '∃', '∀', '¬', '⊤', '⊥', ')', '(', '.', '>=', '<=', 'True',
-                #         'False', '[', ']', '{', '}', '⁻'] + \
-                #        list(atomic_concept_names) + list(role_names)
-                #tokenizer = Tokenizer(BPE(unk_token='[UNK]'))
-                #trainer = BpeTrainer(special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
-                #tokenizer.pre_tokenizer = WhitespaceSplit()
-                #tokenizer.train_from_iterator(Vocab, trainer)
-                #tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
-                #tokenizer.pad_token = "[PAD]"
-                #self.tokenizer = tokenizer
-                #
                 ## Train the tokenizer
                 tokenizer = Tokenizer(BPE(unk_token="<UNK>"))
                 tokenizer.pre_tokenizer = WhitespaceSplit()
@@ -128,26 +109,6 @@ class Execute:
                 self.tokenizer = wrapped_tokenizer
                 self.can_use_pretrained_model = False
         elif self.args.model.lower() != "composite":
-            #renderer = DLSyntaxObjectRenderer()
-            #atomic_concept_names = frozenset(
-            #    [renderer.render(a) for a in self.kb.ontology.classes_in_signature()])
-            #role_names = frozenset([r.str.split("/")[-1].split("#")[-1] for r in
-            #                        self.kb.ontology.object_properties_in_signature()] +
-            #                       [r.str.split("/")[-1].split("#")[-1] for r in
-            #                        self.kb.ontology.data_properties_in_signature()])
-            #Vocab = ['⊔', '⊓', '∃', '∀', '¬', '⊤', '⊥', ')', '(', '.', '>=', '<=', 'True', 'False',
-            #         '[', ']', '{', '}', '⁻'] + \
-            #        list(atomic_concept_names) + list(role_names)
-            #tokenizer = Tokenizer(BPE(unk_token='[UNK]'))
-            #trainer = BpeTrainer(special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
-            #tokenizer.pre_tokenizer = WhitespaceSplit()
-            #tokenizer.train_from_iterator(Vocab, trainer)
-            #tokenizer = PreTrainedTokenizerFast(tokenizer_object=tokenizer)
-            #tokenizer.pad_token = "[PAD]"
-            #tokenizer.pad_token_id = 3
-            #self.tokenizer = tokenizer
-            #
-            #
             ## Train the tokenizer
             tokenizer = Tokenizer(BPE(unk_token="<UNK>"))
             tokenizer.pre_tokenizer = WhitespaceSplit()
@@ -300,7 +261,7 @@ class ExecuteTest:
                 self.pma_net = PMAnet(NIRConfig().embedding_dim, NIRConfig().num_attention_heads, 1)
                 self.pma_net.load_state_dict(torch.load(self.args.pma_model_path, map_location="cpu", weights_only=True))
             self.kb, self.all_individuals, self.embeddings = read_embs_and_apply_agg(
-                self.args.dataset_dir, nn_agg=self.pma_net if hasattr(self, "pma_net") else None, merge=True)
+                self.args.dataset_dir, nn_agg=self.pma_net if hasattr(self, "pma_net") else None, merge=True, complete_percent=self.args.complete_percent)
         else:
             self.embeddings = read_embs(self.args.dataset_dir, merge=False)
         #remove_atomic_concepts = self.args.model.lower() == "composite"
@@ -360,66 +321,6 @@ class ExecuteTest:
         f1, jaccard = self.trainer.predict(self.data)
         print(f"Test F1: {f1}", f"Test Jaccard: {jaccard}")
 
-class ExecuteTestNIR:
-    """
-    A class for testing a model.
-    """
-    def __init__(self, args):
-        self.args = args
-        self.read_and_maybe_preprocess_data()
-        self.get_model()
-        self.compute_instance_retrieval_cache()
-        self.num_examples = None
-        self.epochs = None
-        self.train_test_split = None
-    def read_and_maybe_preprocess_data(self) -> None:
-        if not os.path.exists(self.args.dataset_dir):
-            raise FileNotFoundError(f"Path to dataset does not exist: {self.args.dataset_dir}")
-        if not os.path.exists(f"{self.args.dataset_dir}/kb/ontology.owl"):
-            raise FileNotFoundError(
-                f"Path to dataset does not exist: {self.args.dataset_dir}/kb/ontology.owl")
-        if not glob.glob(f"{self.args.dataset_dir}/embeddings/*embeddings.csv"):
-            raise FileNotFoundError(f"No embeddings found at {self.args.dataset_dir}/embeddings/")
-        if not glob.glob(f"{self.args.dataset_dir}/training_data/*.json"):
-            raise FileNotFoundError(
-                f"No training data found at {self.args.dataset_dir}/training_data/")
-
-        if self.args.model == "composite" and self.args.use_pma:
-            self.pma_net = PMAnet(NIRConfig().embedding_dim, NIRConfig().num_attention_heads, 1)
-            self.pma_net.load_state_dict(torch.load(self.args.pma_model_path, map_location="cpu", weights_only=True))
-        self.kb, self.all_individuals, self.embeddings = read_embs_and_apply_agg(
-            self.args.dataset_dir, nn_agg=self.pma_net if hasattr(self, "pma_net") else None, merge=True)
-        #remove_atomic_concepts = self.args.model.lower() == "composite"
-        self.data = None
-    def get_model(self):
-        AutoModel.register(NIRConfig, NIRComposite)
-        try:
-            self.model = AutoModel.from_pretrained(self.args.pretrained_model_path)
-            print("\n\x1b[6;30;42mSuccessfully loaded a pretrained model!\x1b[0m\n")
-        except Exception as e:
-            print(e)
-    def compute_instance_retrieval_cache(self):
-        kb_namespace = list(self.kb.ontology.classes_in_signature())[0].str
-        if "#" in kb_namespace:
-            kb_namespace = kb_namespace.split("#")[0] + "#"
-        elif "/" in kb_namespace:
-            kb_namespace = kb_namespace[:kb_namespace.rfind("/")] + "/"
-        elif ":" in kb_namespace:
-            kb_namespace = kb_namespace[:kb_namespace.rfind(":")] + ":"
-        expression_parser = DLSyntaxParser(kb_namespace)
-        self.concept_to_instance_set = {expr: set(
-            [ind.str.split("/")[-1] for ind in self.kb.individuals(expression_parser.parse(expr))])
-            for expr in self.data}
-    def start(self) -> dict:
-        self.start_time = time.time()
-        print("\nStarting testing...")
-        print(f"Start time:{datetime.datetime.now()}\n")
-        self.trainer = Trainer(self.model, self.tokenizer, self.data, self.embeddings,
-                               self.all_individuals, self.concept_to_instance_set,
-                               self.num_examples, self.args.th, self.args.optimizer, self.args.pretrained_model_path,
-                               self.args.output_dir, self.epochs, self.args.batch_size,
-                               self.args.num_workers, self.args.lr, self.train_test_split)
-        return self.trainer
 
 
 class ExecutePMA:
