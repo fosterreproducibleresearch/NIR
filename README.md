@@ -10,12 +10,18 @@ git clone https://github.com/fosterreproducibleresearch/NIR && cd NIR && conda c
 
 # Training NIR
 
-- Download datasets and pretrained models from [datasets and models](https://figshare.com/s/04189ac2f5b8de24aeef) and decompress files in the main directory.
+- Download datasets and pretrained models from [datasets and models](https://figshare.com/s/0a144cb1ce88cfa046a3) and decompress files in the main directory.
 
 - Execute the following for training:
 
 ```bash
-nir --dataset_dir {path_to_dataset} # Use `-h` for more options. An example path is --dataset_dir ./datasets/semantic_bible
+nir --dataset_dir {path_to_dataset} # Use `-h` for more options. An example path is --dataset_dir ./datasets/animals
+```
+
+An example is
+
+```bash
+nir --dataset_dir datasets/lymphography --output_dir NIR_Composite_lymph --num_example 50 --epochs 400 --model composite --pma_model_path pma_pretrained/PMA_lymph/model.pt --use_pma True --batch_size 256 --num_workers 0
 ```
 
 - Pretrained model can be loaded before training:
@@ -23,7 +29,31 @@ nir --dataset_dir {path_to_dataset} # Use `-h` for more options. An example path
 nir --dataset_dir {path_to_dataset} --pretrained_model_path {path}
 ```
 
-# Inference
+# Reproducing Results
+
+- To reproduce retrieval results on all datasets (Animals as an example), please first set the following files as executables:
+```bash
+1. chmod +x retrieval_eval_compositional
+2. chmod +x retrieval_eval_encoders
+```
+then run:
+
+```bash
+./retrieval_eval_compositional
+```
+for the compositional architecture, or
+
+```bash
+./retrieval_eval_encoders
+```
+for encoding-based models.
+One may also execute commands that are inside the above file, e.g.,
+```bash
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model Transformer --output_dir Results/NIR_Transformer_Eval_animals --pretrained_model_path nir_pretrained_models/NIR_Transformer_animals/
+```
+
+
+# Inference (Hands-on Example)
 
 ```python
 import torch

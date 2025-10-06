@@ -1,17 +1,17 @@
 #!/bin/bash
 # Family
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model Composite --output_dir Results/NIR_Composite_Eval_family --pretrained_model_path new_train_dir/NIR_Composite_family/ --pma_model_path pma_pretrained/PMA_family/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model Composite --output_dir Results/NIR_Composite_Eval_family --pretrained_model_path nir_pretrained_models/NIR_Composite_family/ --pma_model_path pma_pretrained/PMA_family/model.pt
 # Semantic Bible
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model Composite --output_dir Results/NIR_Composite_Eval_semb --pretrained_model_path new_train_dir/NIR_Composite_semb/ --pma_model_path pma_pretrained/PMA_semb/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model Composite --output_dir Results/NIR_Composite_Eval_semb --pretrained_model_path nir_pretrained_models/NIR_Composite_semb/ --pma_model_path pma_pretrained/PMA_semb/model.pt
 # Suramin
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model Composite --output_dir Results/NIR_Composite_Eval_suramin --pretrained_model_path new_train_dir/NIR_Composite_suramin/ --pma_model_path pma_pretrained/PMA_suramin/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model Composite --output_dir Results/NIR_Composite_Eval_suramin --pretrained_model_path nir_pretrained_models/NIR_Composite_suramin/ --pma_model_path pma_pretrained/PMA_suramin/model.pt
 # Animals
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model Composite --output_dir Results/NIR_Composite_Eval_animals --pretrained_model_path new_train_dir/NIR_Composite_animals/ --pma_model_path pma_pretrained/PMA_animals/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model Composite --output_dir Results/NIR_Composite_Eval_animals --pretrained_model_path nir_pretrained_models/NIR_Composite_animals/ --pma_model_path pma_pretrained/PMA_animals/model.pt
 # Lymphography
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model Composite --output_dir Results/NIR_Composite_Eval_lymph --pretrained_model_path new_train_dir/NIR_Composite_lymph/ --pma_model_path pma_pretrained/PMA_lymph/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model Composite --output_dir Results/NIR_Composite_Eval_lymph --pretrained_model_path nir_pretrained_models/NIR_Composite_lymph/ --pma_model_path pma_pretrained/PMA_lymph/model.pt
 # Nctrer
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model Composite --output_dir Results/NIR_Composite_Eval_nctrer --pretrained_model_path new_train_dir/NIR_Composite_nctrer/ --pma_model_path pma_pretrained/PMA_nctrer/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model Composite --output_dir Results/NIR_Composite_Eval_nctrer --pretrained_model_path nir_pretrained_models/NIR_Composite_nctrer/ --pma_model_path pma_pretrained/PMA_nctrer/model.pt
 # Mutagenesis
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model Composite --output_dir Results/NIR_Composite_Eval_mutagen --pretrained_model_path new_train_dir/NIR_Composite_mutagen/ --pma_model_path pma_pretrained/PMA_mutagen/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model Composite --output_dir Results/NIR_Composite_Eval_mutagen --pretrained_model_path nir_pretrained_models/NIR_Composite_mutagen/ --pma_model_path pma_pretrained/PMA_mutagen/model.pt
 # Carcinogenesis
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model Composite --output_dir Results/NIR_Composite_Eval_carcino --pretrained_model_path new_train_dir/NIR_Composite_carcino/ --pma_model_path pma_pretrained/PMA_carcino/model.pt
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model Composite --output_dir Results/NIR_Composite_Eval_carcino --pretrained_model_path nir_pretrained_models/NIR_Composite_carcino/ --pma_model_path pma_pretrained/PMA_carcino/model.pt

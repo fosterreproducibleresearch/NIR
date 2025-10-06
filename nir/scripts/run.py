@@ -6,9 +6,7 @@ import os
 
 """How to run? E.g.,
 
-nir --dataset_dir datasets/lymphography --output_dir NIR_Composite_lymph --num_example 100 --epochs 200 --model composite --pma_model_path PMA_lymph/model.pt --batch_size 256 --num_workers 0
-
-nir --dataset_dir datasets/vicodi/ --output_dir NIR_GRU_vicodi --num_example 100 --epochs 300 --model gru --batch_size 256 --num_workers 0
+nir --dataset_dir datasets/lymphography --output_dir NIR_Composite_lymph --num_example 50 --epochs 400 --model composite --pma_model_path pma_pretrained/PMA_lymph/model.pt --use_pma True --batch_size 256 --num_workers 0
 """
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"

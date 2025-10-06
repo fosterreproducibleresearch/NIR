@@ -1,40 +1,40 @@
 #!/bin/bash
 # Nctrer
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model Transformer --output_dir Results/NIR_Transformer_Eval_nctrer --pretrained_model_path new_train_dir/NIR_Transformer_nctrer/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model LSTM --output_dir Results/NIR_LSTM_Eval_nctrer --pretrained_model_path new_train_dir/NIR_LSTM_nctrer/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model GRU --output_dir Results/NIR_GRU_Eval_nctrer --pretrained_model_path new_train_dir/NIR_GRU_nctrer/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model Transformer --output_dir Results/NIR_Transformer_Eval_nctrer --pretrained_model_path nir_pretrained_models/NIR_Transformer_nctrer/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model LSTM --output_dir Results/NIR_LSTM_Eval_nctrer --pretrained_model_path nir_pretrained_models/NIR_LSTM_nctrer/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/nctrer/ --model GRU --output_dir Results/NIR_GRU_Eval_nctrer --pretrained_model_path nir_pretrained_models/NIR_GRU_nctrer/
 
 ## Family
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model Transformer --output_dir Results/NIR_Transformer_Eval_family --pretrained_model_path new_train_dir/NIR_Transformer_family/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model LSTM --output_dir Results/NIR_LSTM_Eval_family --pretrained_model_path new_train_dir/NIR_LSTM_family/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model GRU --output_dir Results/NIR_GRU_Eval_family --pretrained_model_path new_train_dir/NIR_GRU_family/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model Transformer --output_dir Results/NIR_Transformer_Eval_family --pretrained_model_path nir_pretrained_models/NIR_Transformer_family/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model LSTM --output_dir Results/NIR_LSTM_Eval_family --pretrained_model_path nir_pretrained_models/NIR_LSTM_family/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/family/ --model GRU --output_dir Results/NIR_GRU_Eval_family --pretrained_model_path nir_pretrained_models/NIR_GRU_family/
 
 ## Semantic Bible
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model Transformer --output_dir Results/NIR_Transformer_Eval_semb --pretrained_model_path new_train_dir/NIR_Transformer_semb/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model LSTM --output_dir Results/NIR_LSTM_Eval_semb --pretrained_model_path new_train_dir/NIR_LSTM_semb/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model GRU --output_dir Results/NIR_GRU_Eval_semb --pretrained_model_path new_train_dir/NIR_GRU_semb/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model Transformer --output_dir Results/NIR_Transformer_Eval_semb --pretrained_model_path nir_pretrained_models/NIR_Transformer_semb/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model LSTM --output_dir Results/NIR_LSTM_Eval_semb --pretrained_model_path nir_pretrained_models/NIR_LSTM_semb/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/semantic_bible/ --model GRU --output_dir Results/NIR_GRU_Eval_semb --pretrained_model_path nir_pretrained_models/NIR_GRU_semb/
 
 ## Lymphography
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model Transformer --output_dir Results/NIR_Transformer_Eval_lymph --pretrained_model_path new_train_dir/NIR_Transformer_lymph/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model LSTM --output_dir Results/NIR_LSTM_Eval_lymph --pretrained_model_path new_train_dir/NIR_LSTM_lymph/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model GRU --output_dir Results/NIR_GRU_Eval_lymph --pretrained_model_path new_train_dir/NIR_GRU_lymph/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model Transformer --output_dir Results/NIR_Transformer_Eval_lymph --pretrained_model_path nir_pretrained_models/NIR_Transformer_lymph/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model LSTM --output_dir Results/NIR_LSTM_Eval_lymph --pretrained_model_path nir_pretrained_models/NIR_LSTM_lymph/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/lymphography/ --model GRU --output_dir Results/NIR_GRU_Eval_lymph --pretrained_model_path nir_pretrained_models/NIR_GRU_lymph/
 
 ## Suramin
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model Transformer --output_dir Results/NIR_Transformer_Eval_suramin --pretrained_model_path new_train_dir/NIR_Transformer_suramin/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model LSTM --output_dir Results/NIR_LSTM_Eval_suramin --pretrained_model_path new_train_dir/NIR_LSTM_suramin/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model GRU --output_dir Results/NIR_GRU_Eval_suramin --pretrained_model_path new_train_dir/NIR_GRU_suramin/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model Transformer --output_dir Results/NIR_Transformer_Eval_suramin --pretrained_model_path nir_pretrained_models/NIR_Transformer_suramin/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model LSTM --output_dir Results/NIR_LSTM_Eval_suramin --pretrained_model_path nir_pretrained_models/NIR_LSTM_suramin/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/suramin/ --model GRU --output_dir Results/NIR_GRU_Eval_suramin --pretrained_model_path nir_pretrained_models/NIR_GRU_suramin/
 
 ## Animals
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model Transformer --output_dir Results/NIR_Transformer_Eval_animals --pretrained_model_path new_train_dir/NIR_Transformer_animals/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model LSTM --output_dir Results/NIR_LSTM_Eval_animals --pretrained_model_path new_train_dir/NIR_LSTM_animals/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model GRU --output_dir Results/NIR_GRU_Eval_animals --pretrained_model_path new_train_dir/NIR_GRU_animals/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model Transformer --output_dir Results/NIR_Transformer_Eval_animals --pretrained_model_path nir_pretrained_models/NIR_Transformer_animals/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model LSTM --output_dir Results/NIR_LSTM_Eval_animals --pretrained_model_path nir_pretrained_models/NIR_LSTM_animals/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model GRU --output_dir Results/NIR_GRU_Eval_animals --pretrained_model_path nir_pretrained_models/NIR_GRU_animals/
 
 ## Mutagenesis
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model Transformer --output_dir Results/NIR_Transformer_Eval_mutagen --pretrained_model_path new_train_dir/NIR_Transformer_mutagen/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model LSTM --output_dir Results/NIR_LSTM_Eval_mutagen --pretrained_model_path new_train_dir/NIR_LSTM_mutagen/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model GRU --output_dir Results/NIR_GRU_Eval_mutagen --pretrained_model_path new_train_dir/NIR_GRU_mutagen/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model Transformer --output_dir Results/NIR_Transformer_Eval_mutagen --pretrained_model_path nir_pretrained_models/NIR_Transformer_mutagen/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model LSTM --output_dir Results/NIR_LSTM_Eval_mutagen --pretrained_model_path nir_pretrained_models/NIR_LSTM_mutagen/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/mutagenesis/ --model GRU --output_dir Results/NIR_GRU_Eval_mutagen --pretrained_model_path nir_pretrained_models/NIR_GRU_mutagen/
 
 ## Carcinogenesis
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model Transformer --output_dir Results/NIR_Transformer_Eval_carcino --pretrained_model_path new_train_dir/NIR_Transformer_carcino/
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model LSTM --output_dir Results/NIR_LSTM_Eval_carcino --pretrained_model_path new_train_dir/NIR_LSTM_carcino
-python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model GRU --output_dir Results/NIR_GRU_Eval_carcino --pretrained_model_path new_train_dir/NIR_GRU_carcino/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model Transformer --output_dir Results/NIR_Transformer_Eval_carcino --pretrained_model_path nir_pretrained_models/NIR_Transformer_carcino/
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model LSTM --output_dir Results/NIR_LSTM_Eval_carcino --pretrained_model_path nir_pretrained_models/NIR_LSTM_carcino
+python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/carcinogenesis/ --model GRU --output_dir Results/NIR_GRU_Eval_carcino --pretrained_model_path nir_pretrained_models/NIR_GRU_carcino/
