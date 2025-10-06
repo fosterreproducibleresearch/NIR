@@ -55,6 +55,7 @@ python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model T
 
 # Inference (Hands-on Example)
 
+
 ```python
 import torch
 from transformers import AutoModel, AutoConfig, AutoTokenizer
@@ -63,13 +64,12 @@ from nir.config import NIRConfig
 from nir.utils import read_embs
 AutoConfig.register("nir", NIRConfig)
 AutoModel.register(NIRConfig, NIRTransformer)
-pretrained_model_path = "nir_pretrained_models/NIR_Transformer_animals"
+pretrained_model_path = "new_train_dir/NIR_Transformer_animals"
 model = AutoModel.from_pretrained(f"{pretrained_model_path}")
 tokenizer = AutoTokenizer.from_pretrained(f"{pretrained_model_path}")
 
-## First example
 print("First example\n")
-class_expression = "(¬HasGills) ⊓ (¬Penguin)"
+class_expression = "¬Penguin ⊓ ∀ hasCovering.Feathers"
 individual = "animals#eagle01"
 embeddings = read_embs("./datasets/animals/")
 
@@ -85,7 +85,7 @@ probability = model(input_ids, attention_mask, ind_embs)
 
 print(f"Probability that `{individual}` is an instance of `{class_expression}` is {probability}")
 
-# Probability that `animals#eagle01` is an instance of `(¬HasGills) ⊓ (¬Penguin)` is 0.9818605184555054
+# Probability that `animals#eagle01` is an instance of `¬Penguin ⊓ ∀ hasCovering.Feathers` is 0.9999998807907104
 
 
 ## Second example
@@ -101,5 +101,5 @@ probability = model(input_ids, attention_mask, ind_embs)
 
 print(f"Probability that `{individual}` is an instance of `{class_expression}` is {probability}")
 
-# Probability that `animals#eel01` is an instance of `(¬Eel) ⊓ (¬Bird)` is 0.06383775174617767
+# Probability that `animals#eel01` is an instance of `(¬Eel) ⊓ (¬Bird)` is 9.744724138727179e-07
 ```
