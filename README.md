@@ -47,7 +47,7 @@ for the compositional architecture, or
 ./retrieval_eval_encoders
 ```
 for encoding-based models.
-One may also execute commands that are inside the above file, e.g.,
+One may also execute commands that are inside the above files, e.g.,
 ```bash
 python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model Transformer --output_dir Results/NIR_Transformer_Eval_animals --pretrained_model_path nir_pretrained_models/NIR_Transformer_animals/
 ```
