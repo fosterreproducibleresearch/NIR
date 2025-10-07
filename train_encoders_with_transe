@@ -1,0 +1,33 @@
+#!/bin/bash
+# Family
+nir --dataset_dir ./datasets/family/ --output_dir transe_train_dir/NIR_Transformer_family --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+nir --dataset_dir ./datasets/family/ --output_dir transe_train_dir/NIR_GRU_family --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+# Semantic Bible
+nir --dataset_dir ./datasets/semantic_bible/ --output_dir transe_train_dir/NIR_Transformer_semb --num_example 50 --epochs 200 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+nir --dataset_dir ./datasets/semantic_bible/ --output_dir transe_train_dir/NIR_GRU_semb --num_example 50 --epochs 200 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+# Lymphography
+nir --dataset_dir ./datasets/lymphography/ --output_dir transe_train_dir/NIR_Transformer_lymph --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+nir --dataset_dir ./datasets/lymphography/ --output_dir transe_train_dir/NIR_GRU_lymph --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+# Suramin
+nir --dataset_dir ./datasets/suramin/ --output_dir transe_train_dir/NIR_Transformer_suramin --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+nir --dataset_dir ./datasets/suramin/ --output_dir transe_train_dir/NIR_GRU_suramin --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+# Animals
+nir --dataset_dir ./datasets/animals/ --output_dir transe_train_dir/NIR_Transformer_animals --num_example 20 --epochs 400 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+nir --dataset_dir ./datasets/animals/ --output_dir transe_train_dir/NIR_GRU_animals --num_example 20 --epochs 400 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+# Nctrer
+nir --dataset_dir ./datasets/nctrer/ --output_dir transe_train_dir/NIR_Transformer_nctrer --num_example 50 --epochs 200 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+nir --dataset_dir ./datasets/nctrer/ --output_dir transe_train_dir/NIR_GRU_nctrer --num_example 50 --epochs 200 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+# Mutagenesis
+nir --dataset_dir ./datasets/mutagenesis/ --output_dir transe_train_dir/NIR_Transformer_mutagen --num_example 50 --epochs 200 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+nir --dataset_dir ./datasets/mutagenesis/ --output_dir transe_train_dir/NIR_GRU_mutagen --num_example 50 --epochs 200 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"
+
+# Carcinogenesis
+nir --dataset_dir ./datasets/carcinogenesis/ --output_dir transe_train_dir/NIR_Transformer_carcino --num_example 50 --epochs 200 --model Transformer --batch_size 256 --num_workers 0 --embs_kw "transe"
+nir --dataset_dir ./datasets/carcinogenesis/ --output_dir transe_train_dir/NIR_GRU_carcino --num_example 50 --epochs 200 --model GRU --batch_size 256 --num_workers 0 --embs_kw "transe"

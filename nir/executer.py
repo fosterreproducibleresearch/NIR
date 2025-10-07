@@ -46,7 +46,10 @@ class Execute:
         if not os.path.exists(f"{self.args.dataset_dir}/kb/ontology.owl"):
             raise FileNotFoundError(
                 f"Path to dataset does not exist: {self.args.dataset_dir}/kb/ontology.owl")
-        embs_path = f"{self.args.dataset_dir}/embeddings/{self.args.complete_percent}" if self.args.complete_percent else f"{self.args.dataset_dir}/embeddings"
+        if self.args.embs_kw is not None:
+            embs_path = f"{self.args.dataset_dir}/embeddings_{self.args.embs_kw}"
+        else:
+            embs_path = f"{self.args.dataset_dir}/embeddings/{self.args.complete_percent}" if self.args.complete_percent else f"{self.args.dataset_dir}/embeddings"
         if not glob.glob(f"{embs_path}/*embeddings.csv"):
             raise FileNotFoundError(f"No embeddings found at {self.args.dataset_dir}/embeddings/")
         if not glob.glob(f"{self.args.dataset_dir}/data/*.json"):
@@ -57,9 +60,9 @@ class Execute:
                 self.pma_net = PMAnet(NIRConfig().embedding_dim, NIRConfig().num_attention_heads, 1)
                 self.pma_net.load_state_dict(torch.load(self.args.pma_model_path, map_location="cpu", weights_only=True))
             self.kb, self.all_individuals, self.embeddings = read_embs_and_apply_agg(
-                self.args.dataset_dir, nn_agg=self.pma_net if hasattr(self, "pma_net") else None, merge=True, complete_percent=self.args.complete_percent)
+                self.args.dataset_dir, nn_agg=self.pma_net if hasattr(self, "pma_net") else None, merge=True, complete_percent=self.args.complete_percent, embs_kw=self.args.embs_kw)
         else:
-            self.embeddings = read_embs(self.args.dataset_dir, merge=False, complete_percent=self.args.complete_percent)
+            self.embeddings = read_embs(self.args.dataset_dir, merge=False, complete_percent=self.args.complete_percent, embs_kw=self.args.embs_kw)
         remove_atomic_concepts = self.args.model.lower() == "composite"
         self.data = read_training_data(self.args.dataset_dir,
                                        remove_atomic_concepts=remove_atomic_concepts, debug=self.args.debug)

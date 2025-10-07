@@ -1,0 +1,15 @@
+dicee --path_single_kg datasets/semantic_bible/kb/ontology.owl --storage_path datasets/semantic_bible/ --path_to_store_single_run datasets/semantic_bible/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 300 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model "train" --backend rdflib --num_core 4 --batch_size 128 --lr 0.1
+
+dicee --path_single_kg datasets/carcinogenesis/kb/ontology.owl --storage_path datasets/carcinogenesis/ --path_to_store_single_run datasets/carcinogenesis/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 200 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model "train" --backend rdflib --num_core 4 --batch_size 128 --lr 0.1
+
+dicee --path_single_kg datasets/mutagenesis/kb/ontology.owl --storage_path datasets/mutagenesis/ --path_to_store_single_run datasets/mutagenesis/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 200 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model "train" --backend rdflib --num_core 4 --batch_size 128 --lr 0.1
+
+#dicee --path_single_kg datasets/family/kb/ontology.owl --storage_path datasets/family/ --path_to_store_single_run datasets/family/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 200 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model "train" --backend rdflib --num_core 4 --batch_size 128 --lr 0.1
+
+dicee --path_single_kg datasets/animals/kb/ontology.owl --storage_path datasets/animals/ --path_to_store_single_run datasets/animals/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 200 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model "train" --backend rdflib --num_core 4 --batch_size 128 --lr 0.1
+
+dicee --path_single_kg datasets/lymphography/kb/ontology.owl --storage_path datasets/lymphography/ --path_to_store_single_run datasets/lymphography/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 200 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model "train" --backend rdflib --num_core 4 --batch_size 128 --lr 0.1
+
+dicee --path_single_kg datasets/suramin/kb/ontology.owl --storage_path datasets/suramin/ --path_to_store_single_run datasets/suramin/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 200 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model "train" --backend rdflib --num_core 4 --batch_size 128 --lr 0.1
+
+dicee --path_single_kg datasets/nctrer/kb/ontology.owl --storage_path datasets/nctrer/ --path_to_store_single_run datasets/nctrer/embeddings_transe --trainer "PL" --embedding_dim 256 --num_epochs 200 --save_embeddings_as_csv --scoring_technique KvsAll --model "TransE" --eval_model None --backend rdflib --num_core 4 --batch_size 256 --lr 0.1

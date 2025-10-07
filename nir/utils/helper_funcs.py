@@ -140,10 +140,12 @@ def get_short_name(name):
     return _name
 
 @timeit
-def read_embs(base_path, merge=False, complete_percent=None):
+def read_embs(base_path, merge=False, complete_percent=None, embs_kw=None):
     common_path = f"{base_path}/embeddings"
     if complete_percent:
         common_path = f"{base_path}/embeddings/{complete_percent}"
+    elif embs_kw:
+        common_path = f"{base_path}/embeddings_{embs_kw}"
     if not merge:
         df = pd.read_csv(glob.glob(f'{common_path}/*entity_embeddings.csv')[0], index_col=0).drop_duplicates(subset="0")
         df.index = df.index.map(get_short_name)
@@ -156,7 +158,7 @@ def read_embs(base_path, merge=False, complete_percent=None):
     return dfs
 
 @timeit
-def read_embs_and_apply_agg(base_path, merge=False, complete_percent=None, nn_agg=None, device="cpu"):
+def read_embs_and_apply_agg(base_path, merge=False, complete_percent=None, embs_kw=None, nn_agg=None, device="cpu"):
     if torch.cuda.is_available():
         device = "cuda"
     if nn_agg is not None:
@@ -166,7 +168,7 @@ def read_embs_and_apply_agg(base_path, merge=False, complete_percent=None, nn_ag
         kb = KnowledgeBase(path=f'{base_path}/kb/ontology_sub_{complete_percent}.owl')
     else:
         kb = KnowledgeBase(path=f'{base_path}/kb/ontology.owl')
-    embs = read_embs(base_path, merge, complete_percent=complete_percent)
+    embs = read_embs(base_path, merge, complete_percent=complete_percent, embs_kw=embs_kw)
     
     classes = [c.str.split("/")[-1] for c in kb.ontology.classes_in_signature()]
     classtoinstance = {C.str.split("/")[-1]: list({ind.str.split("/")[-1] for ind in kb.individuals(C) if

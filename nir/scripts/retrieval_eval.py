@@ -59,7 +59,7 @@ def execute(args):
             torch.load(args.pma_model_path, map_location="cpu", weights_only=True))
         pma_net.eval()
     kb, all_individuals, embeddings = read_embs_and_apply_agg(args.dataset_dir, nn_agg=pma_net,
-                                                              merge=True, complete_percent=args.complete_percent)
+                                                              merge=True, complete_percent=args.complete_percent, embs_kw=args.embs_kw)
     if args.complete_percent is not None:
         complete_kb = KnowledgeBase(path=f"{args.dataset_dir}/kb/ontology.owl")
     else:
@@ -227,6 +227,8 @@ def get_default_arguments(description=None):
                              ",e.g., datasets/carcinogenesis/")
     parser.add_argument("--output_dir", type=str, default=None,
                         help="The location where to store the trained model and training results.")
+    parser.add_argument("--embs_kw", type=str, default=None,
+                        help="The keyword specifying the embedding model to use.", choices=["transe"])
     parser.add_argument("--caption", type=str, default="",
                         help="The caption to use for the table of results.")
     parser.add_argument("--th", type=float, default=0.5,
