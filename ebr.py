@@ -112,9 +112,12 @@ def execute(args):
             # () Retrieve a set of inferred individuals and elapsed runtime.
             retrieval_neural_y, runtime_neural_y = concept_retrieval(neural_owl_reasoner, expression)
         except Exception as e:
+            print(str(e))
             with open(reasoning_errors_path, "a") as err_file:
                 err_file.write(f"Expression: {owl_expression_to_dl(expression)} | Error: {e}\n")
             count += 1
+            #print(owl_expression_to_dl(expression))
+            #raise ValueError(str(e))
             continue
         # () Compute the Jaccard similarity.
         jaccard_sim = jaccard_similarity(retrieval_y, retrieval_neural_y)

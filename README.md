@@ -8,6 +8,13 @@ A neural instance retriever in Python which leverages the convenient transformer
 git clone https://github.com/fosterreproducibleresearch/NIR && cd NIR && conda create -n nir python=3.12.9 --y && conda activate nir && pip install -e .
 ```
 
+- You may also need to install owlapy==1.6.3 and dicee==0.2.0 to be able to reproduce the results of EBR (see Python script ebr.py)
+
+# Prerequisites
+
+Embeddings for each knowledge graph need to be available. For the benchmark datasets, these embeddings are precomputed and available in respective subfolders. To train new embeddings, execute the files `train_embeddings` and `train_transe_embeddings`
+
+
 # Training NIR
 
 - Download datasets and pretrained models from [datasets and models](https://figshare.com/s/0a144cb1ce88cfa046a3) and decompress files in the main directory.
