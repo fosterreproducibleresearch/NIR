@@ -6,9 +6,60 @@ python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_tra
 
 python ../nir/scripts/run.py --dataset_dir ./family/ --output_dir incomplete_train_dir/NIR_Composite_family/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_family/model.pt --use_pma True --batch_size 256 --num_workers 0
 
+
 # Semantic Bible
 python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Composite_semb/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_semb/model.pt --use_pma True --batch_size 256 --num_workers 0
 
 python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Composite_semb/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_semb/model.pt --use_pma True --batch_size 256 --num_workers 0
 
 python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_Composite_semb/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_semb/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+
+# Lymphography
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_Composite_lymphography/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_lymph/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_Composite_lymphography/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_lymph/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_Composite_lymphography/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_lymph/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+
+# Nctrer
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_Composite_nctrer/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_nctrer/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_Composite_nctrer/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_nctrer/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_Composite_nctrer/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_nctrer/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+
+# Suramin
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_Composite_suramin/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_suramin/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_Composite_suramin/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_suramin/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_Composite_suramin/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_suramin/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+
+
+# Carcinogenesis
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_Composite_carcino/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_carcino/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_Composite_carcino/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_carcino/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_Composite_carcino/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_carcino/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+
+
+# Mutagenesis
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_Composite_mutagen/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_mutagen/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_Composite_mutagen/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_mutagen/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_Composite_mutagen/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_mutagen/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+
+# Animals
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_Composite_animals/25 --complete_percent 25 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_animals/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_Composite_animals/50 --complete_percent 50 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_animals/model.pt --use_pma True --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_Composite_animals/75 --complete_percent 75 --num_example 50 --epochs 400 --model Composite --pma_model_path ../pma_pretrained/PMA_animals/model.pt --use_pma True --batch_size 256 --num_workers 0

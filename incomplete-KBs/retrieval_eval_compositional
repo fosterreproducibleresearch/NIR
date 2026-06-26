@@ -1,14 +1,63 @@
 #!/bin/bash
 # Family
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/25 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/25 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/50 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/50 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/75 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_family/75 --pma_model_path ../pma_pretrained/PMA_family/model.pt --th 0.50
+
 
 # Semantic Bible
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/25 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/25 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/50 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/50 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/75 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_semb/75 --pma_model_path ../pma_pretrained/PMA_semb/model.pt --th 0.50
+
+
+# Carcinogenesis
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_carcino/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_carcino/25 --pma_model_path ../pma_pretrained/PMA_carcino/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_carcino/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_carcino/50 --pma_model_path ../pma_pretrained/PMA_carcino/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_carcino/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_carcino/75 --pma_model_path ../pma_pretrained/PMA_carcino/model.pt --th 0.50
+
+
+# Mutagenesis
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_mutagen/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_mutagen/25 --pma_model_path ../pma_pretrained/PMA_mutagen/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_mutagen/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_mutagen/50 --pma_model_path ../pma_pretrained/PMA_mutagen/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_mutagen/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_mutagen/75 --pma_model_path ../pma_pretrained/PMA_mutagen/model.pt --th 0.50
+
+
+# Animals
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_animals/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_animals/25 --pma_model_path ../pma_pretrained/PMA_animals/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_animals/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_animals/50 --pma_model_path ../pma_pretrained/PMA_animals/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_animals/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_animals/75 --pma_model_path ../pma_pretrained/PMA_animals/model.pt --th 0.50
+
+
+# Suramin
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_suramin/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_suramin/25 --pma_model_path ../pma_pretrained/PMA_suramin/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_suramin/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_suramin/50 --pma_model_path ../pma_pretrained/PMA_suramin/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_suramin/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_suramin/75 --pma_model_path ../pma_pretrained/PMA_suramin/model.pt --th 0.50
+
+
+# Nctrer
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_nctrer/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_nctrer/25 --pma_model_path ../pma_pretrained/PMA_nctrer/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_nctrer/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_nctrer/50 --pma_model_path ../pma_pretrained/PMA_nctrer/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_nctrer/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_nctrer/75 --pma_model_path ../pma_pretrained/PMA_nctrer/model.pt --th 0.50
+
+
+# Lymphography
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 25 --model Composite --output_dir Results/NIR_Composite_Eval_lymph/25 --pretrained_model_path incomplete_train_dir/NIR_Composite_lymph/25 --pma_model_path ../pma_pretrained/PMA_lymph/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 50 --model Composite --output_dir Results/NIR_Composite_Eval_lymph/50 --pretrained_model_path incomplete_train_dir/NIR_Composite_lymph/50 --pma_model_path ../pma_pretrained/PMA_lymph/model.pt --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 75 --model Composite --output_dir Results/NIR_Composite_Eval_lymph/75 --pretrained_model_path incomplete_train_dir/NIR_Composite_lymph/75 --pma_model_path ../pma_pretrained/PMA_lymph/model.pt --th 0.50

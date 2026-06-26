@@ -6,6 +6,7 @@ from nir.utils import gen_pe
 
 class NIRLSTM(PreTrainedModel):
     config_class = NIRConfig
+    _tied_weights_keys = {}
     def __init__(self, config, batch_training=True):
         super().__init__(config)
         self.config = config
@@ -21,6 +22,7 @@ class NIRLSTM(PreTrainedModel):
 
         self.fc = nn.Sequential(nn.Linear(config.hidden_size + config.individual_size, config.hidden_size), nn.GELU(), nn.Dropout(0.1), nn.Linear(config.hidden_size, config.output_size))
         self.sigmoid = nn.Sigmoid()
+        self.post_init()
 
     def forward(self, input_ids, attention_mask, label_features, labels=None, mask = None):
         individual_embeddings = label_features
@@ -71,6 +73,7 @@ class NIRLSTM(PreTrainedModel):
         
 class NIRGRU(PreTrainedModel):
     config_class = NIRConfig
+    _tied_weights_keys = {}
 
     def __init__(self, config, batch_training=True):
         super().__init__(config)
@@ -86,6 +89,7 @@ class NIRGRU(PreTrainedModel):
                           batch_first=True)
         self.fc = nn.Sequential(nn.Linear(config.hidden_size + config.individual_size, config.hidden_size), nn.GELU(), nn.Dropout(0.1), nn.Linear(config.hidden_size, config.output_size))
         self.sigmoid = nn.Sigmoid()
+        self.post_init()
         
     def forward(self, input_ids, attention_mask, label_features, labels=None, mask = None):
         individual_embeddings = label_features

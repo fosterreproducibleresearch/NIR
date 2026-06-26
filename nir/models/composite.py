@@ -12,6 +12,7 @@ from nir.models.nandnet import Inverse
 
 class NIRComposite(PreTrainedModel):
     config_class = NIRConfig
+    _tied_weights_keys = {}
     def __init__(self, config):
         #input_size, individual_size, device,
         super().__init__(config)
@@ -28,6 +29,7 @@ class NIRComposite(PreTrainedModel):
         self.projection_layer = nn.Linear(self.input_size * 2, self.input_size)
         self.head = nn.Linear(self.input_size, self.config.output_size)
         self.activation = nn.Tanh()
+        self.post_init()
 
     @staticmethod
     def find_innermost_parentheses(expr):

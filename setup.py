@@ -17,7 +17,7 @@ _deps = [
     "gradio>=3.23.0",
     "rdflib>=7.0.0",
     "tiktoken>=0.5.1",
-    "dicee>=0.1.4",
+    "dicee>=0.3.2",
     "ontolearn>=0.9.2",
     "matplotlib>=3.8.2"
 ]

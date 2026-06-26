@@ -6,6 +6,7 @@ from .utils import PMA, PositionalEncoding
 
 class NIRTransformer(PreTrainedModel):
     config_class = NIRConfig
+    _tied_weights_keys = {}
     def __init__(self, config):
         super().__init__(config)
         self.config = config
@@ -27,6 +28,7 @@ class NIRTransformer(PreTrainedModel):
                                 nn.Linear(config.embedding_dim, 1))
         # Activation function
         self.activation = nn.Sigmoid()
+        self.post_init()
         
     def forward(self, input_ids, attention_mask, label_features, labels=None):
         embeddings = self.embedding(input_ids)

@@ -26,3 +26,88 @@ python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomp
 python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_LSTM_semb/50 --complete_percent 50 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
 python ../nir/scripts/run.py --dataset_dir ./semantic_bible/ --output_dir incomplete_train_dir/NIR_LSTM_semb/75 --complete_percent 75 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
 
+
+## Nctrer
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_Transformer_nctrer/25 --complete_percent 25 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_Transformer_nctrer/50 --complete_percent 50 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_Transformer_nctrer/75 --complete_percent 75 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_GRU_nctrer/25 --complete_percent 25 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_GRU_nctrer/50 --complete_percent 50 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_GRU_nctrer/75 --complete_percent 75 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_LSTM_nctrer/25 --complete_percent 25 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_LSTM_nctrer/50 --complete_percent 50 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./nctrer/ --output_dir incomplete_train_dir/NIR_LSTM_nctrer/75 --complete_percent 75 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+
+
+## Animals
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_GRU_animals/25 --complete_percent 25 --num_example 20 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_GRU_animals/50 --complete_percent 50 --num_example 20 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_GRU_animals/75 --complete_percent 75 --num_example 20 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_LSTM_animals/25 --complete_percent 25 --num_example 20 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_LSTM_animals/50 --complete_percent 50 --num_example 20 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_LSTM_animals/75 --complete_percent 75 --num_example 20 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_Transformer_animals/25 --complete_percent 25 --num_example 20 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_Transformer_animals/50 --complete_percent 50 --num_example 20 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./animals/ --output_dir incomplete_train_dir/NIR_Transformer_animals/75 --complete_percent 75 --num_example 20 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+
+# Lymphography
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_Transformer_lymphography/25 --complete_percent 25 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_Transformer_lymphography/50 --complete_percent 50 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_Transformer_lymphography/75 --complete_percent 75 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_GRU_lymphography/25 --complete_percent 25 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_GRU_lymphography/50 --complete_percent 50 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_GRU_lymphography/75 --complete_percent 75 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_LSTM_lymphography/25 --complete_percent 25 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_LSTM_lymphography/50 --complete_percent 50 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./lymphography/ --output_dir incomplete_train_dir/NIR_LSTM_lymphography/75 --complete_percent 75 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+
+
+## Mutagenesis
+
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_Transformer_mutagen/25 --complete_percent 25 --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_Transformer_mutagen/50 --complete_percent 50 --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_Transformer_mutagen/75 --complete_percent 75 --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_GRU_mutagen/25 --complete_percent 25 --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_GRU_mutagen/50 --complete_percent 50 --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_GRU_mutagen/75 --complete_percent 75 --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_LSTM_mutagen/25 --complete_percent 25 --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_LSTM_mutagen/50 --complete_percent 50 --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./mutagenesis/ --output_dir incomplete_train_dir/NIR_LSTM_mutagen/75 --complete_percent 75 --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+
+
+# Suramin
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_Transformer_suramin/25 --complete_percent 25 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_Transformer_suramin/50 --complete_percent 50 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_Transformer_suramin/75 --complete_percent 75 --num_example 50 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_GRU_suramin/25 --complete_percent 25 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_GRU_suramin/50 --complete_percent 50 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_GRU_suramin/75 --complete_percent 75 --num_example 50 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_LSTM_suramin/25 --complete_percent 25 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_LSTM_suramin/50 --complete_percent 50 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./suramin/ --output_dir incomplete_train_dir/NIR_LSTM_suramin/75 --complete_percent 75 --num_example 50 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+
+
+## Carcinogenesis
+
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_Transformer_carcino/25 --complete_percent 25 --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_Transformer_carcino/50 --complete_percent 50 --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_Transformer_carcino/75 --complete_percent 75 --num_example 100 --epochs 400 --model Transformer --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_GRU_carcino/25 --complete_percent 25 --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_GRU_carcino/50 --complete_percent 50 --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_GRU_carcino/75 --complete_percent 75 --num_example 100 --epochs 400 --model GRU --batch_size 256 --num_workers 0
+
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_LSTM_carcino/25 --complete_percent 25 --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_LSTM_carcino/50 --complete_percent 50 --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0
+python ../nir/scripts/run.py --dataset_dir ./carcinogenesis/ --output_dir incomplete_train_dir/NIR_LSTM_carcino/75 --complete_percent 75 --num_example 100 --epochs 400 --model LSTM --batch_size 256 --num_workers 0

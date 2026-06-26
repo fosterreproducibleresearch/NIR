@@ -1,44 +1,178 @@
 #!/bin/bash
 
 ## Family
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_family/25 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_family/25 --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_family/50 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_family/50 --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_family/75 --th 0.45
-
-## Family
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_family/25 --th 0.45
-
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_family/50 --th 0.45
-
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_family/75 --th 0.45
-
-## Family
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_family/25 --th 0.45
-
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_family/50 --th 0.45
-
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_family/75 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_family/75 --th 0.50
 
 
-## Semantic Bible
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_semb/25 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_family/25 --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_semb/50 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_family/50 --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_semb/75 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_family/75 --th 0.50
+
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_family/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_family/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_family/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_family/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./family/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_family/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_family/75 --th 0.50
+
 
 ## Semantic Bible
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_semb/25 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_semb/25 --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_semb/50 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_semb/50 --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_semb/75 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_semb/75 --th 0.50
 
-## Semantic Bible
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_semb/25 --th 0.45
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_semb/50 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_semb/25 --th 0.50
 
-python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_semb/75 --th 0.45
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_semb/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_semb/75 --th 0.50
+
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_semb/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_semb/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_semb/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_semb/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./semantic_bible/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_semb/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_semb/75 --th 0.50
+
+
+## Carcinogenesis
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_carcino/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_carcino/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_carcino/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_carcino/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_carcino/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_carcino/75 --th 0.50
+
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_carcino/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_carcino/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_carcino/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_carcino/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_carcino/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_carcino/75 --th 0.50
+
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_carcino/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_carcino/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_carcino/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_carcino/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./carcinogenesis/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_carcino/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_carcino/75 --th 0.50
+
+
+
+## Mutagenesis
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_mutagen/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_mutagen/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_mutagen/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_mutagen/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_mutagen/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_mutagen/75 --th 0.50
+
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_mutagen/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_mutagen/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_mutagen/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_mutagen/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_mutagen/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_mutagen/75 --th 0.50
+
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_mutagen/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_mutagen/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_mutagen/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_mutagen/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./mutagenesis/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_mutagen/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_mutagen/75 --th 0.50
+
+
+
+## Suramin
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_suramin/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_suramin/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_suramin/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_suramin/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_suramin/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_suramin/75 --th 0.50
+#
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_suramin/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_suramin/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_suramin/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_suramin/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_suramin/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_suramin/75 --th 0.50
+#
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_suramin/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_suramin/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_suramin/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_suramin/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./suramin/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_suramin/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_suramin/75 --th 0.50
+
+
+## Nctrer
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_nctrer/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_nctrer/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_nctrer/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_nctrer/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_nctrer/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_nctrer/75 --th 0.50
+#
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_nctrer/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_nctrer/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_nctrer/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_nctrer/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_nctrer/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_nctrer/75 --th 0.50
+#
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_nctrer/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_nctrer/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_nctrer/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_nctrer/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./nctrer/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_nctrer/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_nctrer/75 --th 0.50
+
+
+## Lymphography
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_lymph/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_lymph/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_lymph/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_lymph/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_lymph/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_lymph/75 --th 0.50
+#
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_lymph/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_lymph/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_lymph/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_lymph/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_lymph/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_lymph/75 --th 0.50
+#
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_lymph/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_lymph/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_lymph/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_lymph/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./lymphography/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_lymph/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_lymph/75 --th 0.50
+
+
+## Animals
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 25 --model Transformer --output_dir Results/NIR_Transformer_Eval_animals/25 --pretrained_model_path incomplete_train_dir/NIR_Transformer_animals/25 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 50 --model Transformer --output_dir Results/NIR_Transformer_Eval_animals/50 --pretrained_model_path incomplete_train_dir/NIR_Transformer_animals/50 --th 0.50
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 75 --model Transformer --output_dir Results/NIR_Transformer_Eval_animals/75 --pretrained_model_path incomplete_train_dir/NIR_Transformer_animals/75 --th 0.50
+
+
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 25 --model LSTM --output_dir Results/NIR_LSTM_Eval_animals/25 --pretrained_model_path incomplete_train_dir/NIR_LSTM_animals/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 50 --model LSTM --output_dir Results/NIR_LSTM_Eval_animals/50 --pretrained_model_path incomplete_train_dir/NIR_LSTM_animals/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 75 --model LSTM --output_dir Results/NIR_LSTM_Eval_animals/75 --pretrained_model_path incomplete_train_dir/NIR_LSTM_animals/75 --th 0.50
+#
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 25 --model GRU --output_dir Results/NIR_GRU_Eval_animals/25 --pretrained_model_path incomplete_train_dir/NIR_GRU_animals/25 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 50 --model GRU --output_dir Results/NIR_GRU_Eval_animals/50 --pretrained_model_path incomplete_train_dir/NIR_GRU_animals/50 --th 0.50
+#
+python ../nir/scripts/retrieval_eval.py --dataset_dir ./animals/ --complete_percent 75 --model GRU --output_dir Results/NIR_GRU_Eval_animals/75 --pretrained_model_path incomplete_train_dir/NIR_GRU_animals/75 --th 0.50
