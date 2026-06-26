@@ -38,7 +38,7 @@ nir --dataset_dir {path_to_dataset} --pretrained_model_path {path}
 
 # Reproducing Results
 
-- To reproduce retrieval results on all datasets (Animals as an example), please first set the following files as executables:
+- To reproduce retrieval results on all datasets, please first set the following files as executables:
 ```bash
 1. chmod +x retrieval_eval_compositional
 2. chmod +x retrieval_eval_encoders
@@ -59,6 +59,7 @@ One may also execute commands that are inside the above files, e.g.,
 python nir/scripts/retrieval_eval.py --dataset_dir ./datasets/animals/ --model Transformer --output_dir Results/NIR_Transformer_Eval_animals --pretrained_model_path nir_pretrained_models/NIR_Transformer_animals/
 ```
 
+- Similar files are availbe under the folder incomplete-KBs to reproduce results on incomple KBs.
 
 # Inference (Hands-on Example)
 
